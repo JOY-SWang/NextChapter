@@ -1,0 +1,90 @@
+import { useNavigate } from 'react-router-dom';
+import { Screen } from '../components/Screen';
+import { JourneySteps } from '../components/JourneySteps';
+import { Icon } from '../components/Icon';
+import { RadarChart } from '../components/RadarChart';
+import { Button, IconTile, Pill } from '../components/ui';
+import { STRENGTH_AXES } from '../data/content';
+import { R } from '../routes';
+
+const PILLARS = [
+  { icon: 'layers', title: 'Project Planning & Execution', pct: 95, sub: 'Pacing, systems & on-time delivery' },
+  { icon: 'people', title: 'Leadership & Mentoring', pct: 92, sub: 'Psychological safety & unblocking others' },
+  { icon: 'chat-lines', title: 'Communication & Facilitation', pct: 88, sub: 'Translating chaos into quiet clarity' },
+];
+
+/** P3 - User Strength ("Your Strengths Snapshot"). */
+export function Strengths() {
+  const nav = useNavigate();
+  return (
+    <Screen label="Your strengths snapshot">
+      <JourneySteps current={2} />
+      <header className="page-head">
+        <h1 className="t-h1">Your Strengths Snapshot</h1>
+        <p className="t-body-lg muted">Drawn from your conversation with AI Coach. Your 20 years haven’t vanished — here is what you’ve built.</p>
+      </header>
+
+      <section className="card card-card">
+        <div className="row-between align-start">
+          <div className="stack-2">
+            <span className="t-overline terracotta">TRANSFERABLE STRENGTHS</span>
+            <h2 className="t-h3">Your strengths map</h2>
+          </div>
+          <Pill tone="dark" icon="verified">
+            High Leverage
+          </Pill>
+        </div>
+        <div className="center-x">
+          <RadarChart axes={STRENGTH_AXES} radius={96} mode="mastery" ariaLabel="Strengths map: Planning 95%, Communication 88%, Mentoring 92%, Adaptability 80%, Wellness 72%, Problem-solving 86%" />
+        </div>
+        <div className="legend">
+          <span>
+            <i style={{ background: 'var(--secondary-key)' }} /> High mastery zone (&gt;85%)
+          </span>
+          <span>
+            <i style={{ background: 'var(--tertiary-key)' }} /> Emergent capacity
+          </span>
+        </div>
+      </section>
+
+      <section className="card card-low row gap-12 align-start">
+        <IconTile icon="star" tone="dark" size={40} radius={20} iconSize={16} />
+        <div className="stack-4">
+          <h2 className="t-h3">Sarah, you’ve mentored 35+ people over 20 years.</h2>
+          <p className="t-body muted">These aren’t corporate-only skills. They carry straight into teaching, coaching and community work.</p>
+        </div>
+      </section>
+
+      <section className="stack-12">
+        <h2 className="t-h3">Your top strengths</h2>
+        {PILLARS.map((p) => (
+          <button key={p.title} type="button" className="unstyled card card-card pillar">
+            <IconTile icon={p.icon} tone="neutral" size={40} radius={12} iconSize={20} />
+            <span className="grow stack-2">
+              <span className="row gap-8 align-start">
+                <span className="t-label-lg grow">{p.title}</span>
+                <span className="pct-badge">{p.pct}%</span>
+              </span>
+              <span className="t-body muted">{p.sub}</span>
+            </span>
+            <Icon name="chevron-down" size={20} color="var(--outline)" />
+          </button>
+        ))}
+      </section>
+
+      <section className="card card-high quote-card">
+        <p className="t-quote">“You don’t need to reinvent yourself from scratch. You only need to redirect your craftsmanship.”</p>
+        <Icon name="quote" size={56} stroke={3} color="rgba(30,56,43,.12)" className="quote-mark" />
+      </section>
+
+      <div className="stack-6">
+        <Button variant="primary" trailing="arrow-right" onClick={() => nav(R.possibilities)}>
+          See Where They Could Take Me
+        </Button>
+        <Button variant="ghost" icon="tune" onClick={() => nav(R.me)}>
+          Edit My Strengths
+        </Button>
+      </div>
+    </Screen>
+  );
+}

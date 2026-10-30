@@ -1,0 +1,72 @@
+/*
+ * Design tokens — mirrored from the Figma variable collection
+ * "Next Chapter · Color" (mode: Light) and the type ramp used on Page 4.
+ * Palette: Primary #1E382B · Secondary #D9933B · Tertiary #995A4E · Neutral #232623
+ */
+:root {
+  /* Primary (forest green) */
+  --primary-key: #1e382b;
+  --primary-strong: #082217;
+  --primary-muted: #496455;
+  --primary-container: #cbead7;
+  --primary-on: #ffffff;
+  --primary-on-dark-muted: #85a291;
+
+  /* Secondary (warm amber) */
+  --secondary-key: #d9933b;
+  --secondary-text: #8b5000;
+  --secondary-container: #ffddba;
+
+  /* Tertiary (terracotta) */
+  --tertiary-key: #995a4e;
+  --tertiary-strong: #73342c;
+  --tertiary-container: #ffdad4;
+  --tertiary-on-container: #3b0d08;
+
+  /* Neutral */
+  --on-surface: #191c19;
+  --on-surface-variant: #424844;
+  --outline: #727973;
+  --outline-variant: #c2c8c2;
+
+  /* Surfaces */
+  --surface-base: #f8faf5;
+  --surface-container-low: #f3f4ef;
+  --surface-container: #edeee9;
+  --surface-container-high: #e7e9e4;
+  --surface-hairline: #e1e3de;
+  --surface-card: #ffffff;
+
+  /* Type */
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, -apple-system,
+    'Segoe UI', Roboto, sans-serif;
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
+  --r-pill: 999px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(25, 28, 25, 0.04), 0 4px 16px rgba(25, 28, 25, 0.04);
+  --shadow-modal: 0 16px 40px rgba(8, 34, 23, 0.22);
+  --shadow-cta: 0 6px 16px rgba(8, 34, 23, 0.18);
+
+  /* Safe areas (iPhone 14/15: Dynamic Island + home indicator) */
+  --status-bar-h: 54px;
+  --top-bar-h: 64px;
+  --bottom-nav-h: 70px;
+  --home-indicator-h: 30px;
+}
+
+/* High-contrast preference (Settings drawer toggle) */
+.hc {
+  --on-surface-variant: #191c19;
+  --outline: #424844;
+  --outline-variant: #727973;
+  --surface-hairline: #c2c8c2;
+  --primary-on-dark-muted: #cbead7;
+}
