@@ -154,7 +154,7 @@ function MeetJoyy() {
           Your Personal AI Coach for What’s Next
         </h2>
         <p className="t-body-md muted stagger" style={{ '--k': 1 } as React.CSSProperties}>
-          I’m here to listen, understand your experience, and help you explore new possibilities.
+          I’m here to listen, understand your experience, and help you explore.
         </p>
         <div className="promises">
           {promises.map((p, i) => (
