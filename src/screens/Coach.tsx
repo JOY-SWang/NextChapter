@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
-import { JourneySteps } from '../components/JourneySteps';
 import { Icon } from '../components/Icon';
+import { useRipple } from '../components/Motion';
 import { JoyyAvatar } from '../components/Joyy';
 import { Photo } from '../components/Photo';
 import { Button, Pill } from '../components/ui';
@@ -34,6 +34,53 @@ function SarahTurn({ children }: { children: React.ReactNode }) {
   );
 }
 
+const SOFAR = [
+  ['people', 'Leadership & Mentoring'],
+  ['chat-lines', 'Communication & Facilitation'],
+  ['layers', 'Project Planning'],
+  ['refresh', 'Adaptability'],
+] as const;
+
+/**
+ * "Strengths so far" — expand / collapse. The body animates its height,
+ * so the conversation below slides up or down to make room.
+ */
+function StrengthsSoFar() {
+  const [open, setOpen] = useState(true);
+  const bodyId = useId();
+  return (
+    <section className={`card card-card strengths-sofar ${open ? 'is-open' : ''}`}>
+      <span className="glow" aria-hidden />
+      <button type="button" className="unstyled sofar-head" aria-expanded={open} aria-controls={bodyId} onClick={() => setOpen((o) => !o)}>
+        <span className="row gap-8">
+          <span className="mini-icon mini-dark">
+            <Icon name="sparkle" size={12} color="var(--primary-container)" />
+          </span>
+          <span className="t-h3">Strengths so far</span>
+        </span>
+        <span className="row gap-8">
+          <Pill tone="terracotta">20 yrs in tech</Pill>
+          <span className="sofar-chev" aria-hidden>
+            <Icon name="chevron-down" size={18} stroke={2} />
+          </span>
+        </span>
+      </button>
+      <div id={bodyId} className="collapse" role="region" aria-label="Strengths so far">
+        <div className="collapse-inner">
+          <p className="t-quote-md">“What have you already built, and where could it take you next?”</p>
+          <div className="wrap gap-8">
+            {SOFAR.map(([i, t], k) => (
+              <Pill key={t} tone="neutral" icon={i} style={{ '--i': k } as React.CSSProperties}>
+                {t}
+              </Pill>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /**
  * P2 - AI Coach Guiding (first-time flow, `guiding`) and P2.2 - AI Coach (everyday, with tab bar).
  * Same conversation; the guided version shows the journey steps and leads into P3.
@@ -42,6 +89,7 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
   const nav = useNavigate();
   const { openOverlay } = useApp();
   const [draft, setDraft] = useState('');
+  const sendRipple = useRipple();
 
   const dock = (
     <form className="chat-input" onSubmit={(e) => (e.preventDefault(), setDraft(''))}>
@@ -49,42 +97,18 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
         <Icon name="mic" size={22} color="var(--on-surface-variant)" />
       </button>
       <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Share anything..." aria-label="Message Joyy" />
-      <button type="submit" className="send-btn" aria-label="Send message">
+      <button type="submit" className="send-btn ripple-host" aria-label="Send message" {...sendRipple.handlers}>
+        {sendRipple.layer}
         <Icon name="send" size={20} color="var(--primary-on)" />
       </button>
     </form>
   );
 
   return (
-    <Screen tab={guiding ? undefined : 'coach'} dock={dock} label={guiding ? 'AI Coach – guided conversation' : 'AI Coach'}>
-      {guiding && <JourneySteps current={1} />}
+    <Screen tab={guiding ? undefined : 'coach'} journey={guiding ? 1 : undefined} dock={dock} label={guiding ? 'AI Coach – guided conversation' : 'AI Coach'}>
       <h1 className="t-h1">Unpacking Next Chapter</h1>
 
-      <section className="card card-card strengths-sofar">
-        <span className="glow" aria-hidden />
-        <div className="row-between">
-          <div className="row gap-8">
-            <span className="mini-icon mini-dark">
-              <Icon name="sparkle" size={12} color="var(--primary-container)" />
-            </span>
-            <span className="t-h3">Strengths so far</span>
-          </div>
-          <Pill tone="terracotta">20 yrs in tech</Pill>
-        </div>
-        <p className="t-quote-md">“What have you already built, and where could it take you next?”</p>
-        <div className="wrap gap-8">
-          {[
-            ['people', 'Leadership & Mentoring'],
-            ['chat-lines', 'Communication & Facilitation'],
-            ['layers', 'Project Planning'],
-            ['refresh', 'Adaptability'],
-          ].map(([i, t]) => (
-            <Pill key={t} tone="neutral" icon={i}>
-              {t}
-            </Pill>
-          ))}
-        </div>
-      </section>
+      <StrengthsSoFar />
 
       <div className="feed">
         <JoyyTurn>

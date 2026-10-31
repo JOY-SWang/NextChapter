@@ -1,3 +1,6 @@
+import type { CSSProperties } from 'react';
+import { useInView } from './Motion';
+
 export interface RadarAxis {
   label: string;
   /** Second label line (e.g. "95%" or "& cueing"). */
@@ -11,6 +14,8 @@ interface Props {
   radius?: number;
   /** "mastery" colours vertex dots by level (P3); "compare" draws the dashed role polygon (P5). */
   mode?: 'mastery' | 'plain' | 'compare';
+  /** Scroll-triggered: the shapes grow out from the centre once the chart enters view. */
+  animate?: boolean;
   ariaLabel: string;
 }
 
@@ -18,7 +23,8 @@ interface Props {
  * Hexagonal radar chart with labels placed outside the grid —
  * recreates the three radar cards (P3 strengths map, P5 fit comparison, User page balance).
  */
-export function RadarChart({ axes, radius = 100, mode = 'plain', ariaLabel }: Props) {
+export function RadarChart({ axes, radius = 100, mode = 'plain', animate = false, ariaLabel }: Props) {
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.35 });
   const padX = 52;
   const padY = 36;
   const W = radius * 2 + padX * 2;
@@ -32,9 +38,10 @@ export function RadarChart({ axes, radius = 100, mode = 'plain', ariaLabel }: Pr
   };
   const poly = (vals: number[]) => vals.map((v, i) => pt(i, radius * v).join(',')).join(' ');
   const rings = [0.25, 0.5, 0.75, 1];
+  const grow = (delay: number) => ({ transformOrigin: `${cx}px ${cy}px`, '--d': `${delay}ms` }) as CSSProperties;
 
   return (
-    <div className="radar" style={{ width: W, height: H }} role="img" aria-label={ariaLabel}>
+    <div ref={ref} className={`radar ${animate ? 'radar-anim' : ''} ${animate && inView ? 'is-in' : ''}`} style={{ width: W, height: H }} role="img" aria-label={ariaLabel}>
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden>
         {rings.map((r, k) => (
           <polygon
@@ -51,39 +58,59 @@ export function RadarChart({ axes, radius = 100, mode = 'plain', ariaLabel }: Pr
           return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="var(--surface-hairline)" strokeWidth={1} />;
         })}
         {mode === 'compare' && (
-          <polygon
-            points={poly(axes.map((a) => a.compare ?? 0))}
-            fill="var(--tertiary-key)"
-            fillOpacity={0.24}
-            stroke="var(--tertiary-key)"
-            strokeWidth={2}
-            strokeDasharray="5 4"
-          />
+          <g className="radar-shape" style={grow(0)}>
+            <polygon
+              points={poly(axes.map((a) => a.compare ?? 0))}
+              fill="var(--tertiary-key)"
+              fillOpacity={0.24}
+              stroke="var(--tertiary-key)"
+              strokeWidth={2}
+              strokeDasharray="5 4"
+            />
+          </g>
         )}
-        <polygon
-          points={poly(axes.map((a) => a.value))}
-          fill="var(--primary-key)"
-          fillOpacity={mode === 'mastery' ? 0.08 : 0.22}
-          stroke="var(--primary-key)"
-          strokeWidth={2.4}
-          strokeLinejoin="round"
-        />
+        <g className="radar-shape" style={grow(mode === 'compare' ? 280 : 0)}>
+          <polygon
+            points={poly(axes.map((a) => a.value))}
+            fill="var(--primary-key)"
+            fillOpacity={mode === 'mastery' ? 0.08 : 0.22}
+            stroke="var(--primary-key)"
+            strokeWidth={2.4}
+            strokeLinejoin="round"
+          />
+        </g>
         {axes.map((a, i) => {
           const [x, y] = pt(i, radius * a.value);
           const fill = mode === 'mastery' ? (a.value >= 0.85 ? 'var(--secondary-key)' : 'var(--tertiary-key)') : 'var(--primary-key)';
-          return <circle key={`d${i}`} cx={x} cy={y} r={mode === 'mastery' ? 5 : 4} fill={fill} stroke="#fff" strokeWidth={1.5} />;
+          return (
+            <circle
+              key={`d${i}`}
+              className="radar-dot"
+              style={{ '--i': i } as CSSProperties}
+              cx={x}
+              cy={y}
+              r={mode === 'mastery' ? 5 : 4}
+              fill={fill}
+              stroke="#fff"
+              strokeWidth={1.5}
+            />
+          );
         })}
         {mode === 'compare' &&
           axes.map((a, i) => {
             const [x, y] = pt(i, radius * (a.compare ?? 0));
-            return <rect key={`c${i}`} x={x - 4} y={y - 4} width={8} height={8} transform={`rotate(45 ${x} ${y})`} fill="var(--tertiary-key)" />;
+            return (
+              <g key={`c${i}`} transform={`rotate(45 ${x} ${y})`}>
+                <rect className="radar-dot" style={{ '--i': i } as CSSProperties} x={x - 4} y={y - 4} width={8} height={8} fill="var(--tertiary-key)" />
+              </g>
+            );
           })}
         <circle cx={cx} cy={cy} r={3} fill="var(--on-surface)" />
       </svg>
       {axes.map((a, i) => {
         const [x, y] = pt(i, radius + 24);
         return (
-          <div key={a.label} className="radar-label" style={{ left: x, top: y }}>
+          <div key={a.label} className="radar-label" style={{ left: x, top: y, '--i': i } as CSSProperties}>
             <strong>{a.label}</strong>
             {a.sub && <span>{a.sub}</span>}
           </div>

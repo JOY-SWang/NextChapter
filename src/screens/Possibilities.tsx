@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
-import { JourneySteps } from '../components/JourneySteps';
 import { Icon } from '../components/Icon';
+import { CountUp, Reveal } from '../components/Motion';
 import { Photo } from '../components/Photo';
 import { Button, FilterChips, Pill } from '../components/ui';
 import { PATHS } from '../data/content';
@@ -14,17 +14,18 @@ export function Possibilities() {
   const [filter, setFilter] = useState(0);
   const [vote, setVote] = useState<'up' | 'down' | null>(null);
   return (
-    <Screen label="Your next possibilities">
-      <JourneySteps current={3} />
-      <header className="page-head">
+    <Screen journey={3} label="Your next possibilities">
+      <Reveal as="header" className="page-head">
         <h1 className="t-h1">Your Next Possibilities</h1>
         <p className="t-body-lg muted">Based on your 20 years of experience, mentoring passion &amp; available 8 hrs/week.</p>
-      </header>
-      <FilterChips items={['All Options (3)', 'Wellness & Teaching', 'Advisory', 'Community']} active={filter} onSelect={setFilter} />
+      </Reveal>
+      <Reveal variant="fade" delay={120}>
+        <FilterChips items={['All Options (3)', 'Wellness & Teaching', 'Advisory', 'Community']} active={filter} onSelect={setFilter} />
+      </Reveal>
 
       <div className="stack-24">
         {PATHS.map((p) => (
-          <article key={p.id} className="card card-card path-card">
+          <Reveal as="article" variant="scale" threshold={0.15} key={p.id} className="card card-card path-card">
             <div className="path-media">
               <Photo name={p.photo} alt={p.title} className="path-photo" style={{ height: p.primary ? 144 : 128 }} />
               <Pill tone="white" icon={p.badge.icon} className="media-badge" style={{ color: p.badge.color }}>
@@ -35,7 +36,9 @@ export function Possibilities() {
               <div className="stack-8">
                 <div className="row gap-8 align-start">
                   <h2 className="t-h2 grow">{p.title}</h2>
-                  <Pill tone="green">{p.fit}% fit</Pill>
+                  <Pill tone="green">
+                    <CountUp to={p.fit} suffix="% fit" delay={300} />
+                  </Pill>
                 </div>
                 <p className="t-body-lg muted">{p.body}</p>
               </div>
@@ -81,11 +84,11 @@ export function Possibilities() {
                 </Button>
               )}
             </div>
-          </article>
+          </Reveal>
         ))}
       </div>
 
-      <section className="card card-low stack-14">
+      <Reveal as="section" className="card card-low stack-14">
         <div className="row gap-12">
           <span className="icon-tile tile-dark" style={{ width: 40, height: 40, borderRadius: 20 }}>
             <Icon name="help" size={20} />
@@ -101,7 +104,7 @@ export function Possibilities() {
             Show Other Paths
           </Button>
         </div>
-      </section>
+      </Reveal>
     </Screen>
   );
 }

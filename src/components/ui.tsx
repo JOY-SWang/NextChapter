@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 import { Icon } from './Icon';
+import { useRipple } from './Motion';
 
 type BtnVariant = 'primary' | 'strong' | 'terracotta' | 'soft' | 'outline' | 'ghost' | 'onDark' | 'light' | 'glass';
 
@@ -12,11 +13,29 @@ interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   block?: boolean;
 }
 
+/** Filled, high-emphasis buttons get the tap ripple. */
+const RIPPLE_VARIANTS: BtnVariant[] = ['primary', 'strong', 'terracotta', 'onDark', 'glass'];
+
 /** Buttons — primary (forest), strong (deep forest), terracotta, soft (surface), outline, ghost. */
-export function Button({ variant = 'primary', icon, trailing, pill, size = 'md', block = true, className, children, ...rest }: BtnProps) {
-  const cls = ['btn', `btn-${variant}`, `btn-${size}`, pill ? 'btn-pill' : '', block ? 'btn-block' : '', className ?? ''].join(' ');
+export function Button({ variant = 'primary', icon, trailing, pill, size = 'md', block = true, className, children, onPointerDown, onKeyDown, ...rest }: BtnProps) {
+  const ripple = useRipple();
+  const hasRipple = RIPPLE_VARIANTS.includes(variant);
+  const cls = ['btn', `btn-${variant}`, `btn-${size}`, pill ? 'btn-pill' : '', block ? 'btn-block' : '', hasRipple ? 'ripple-host' : '', className ?? ''].join(' ');
   return (
-    <button type="button" className={cls} {...rest}>
+    <button
+      type="button"
+      className={cls}
+      onPointerDown={(e) => {
+        if (hasRipple) ripple.handlers.onPointerDown(e);
+        onPointerDown?.(e);
+      }}
+      onKeyDown={(e) => {
+        if (hasRipple) ripple.handlers.onKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      {...rest}
+    >
+      {hasRipple && ripple.layer}
       {icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
       <span>{children}</span>
       {trailing && <Icon name={trailing} size={size === 'sm' ? 15 : 18} stroke={2} />}

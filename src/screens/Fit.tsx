@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
-import { JourneySteps } from '../components/JourneySteps';
 import { Icon } from '../components/Icon';
+import { CountUp, Reveal } from '../components/Motion';
 import { Photo } from '../components/Photo';
 import { RadarChart } from '../components/RadarChart';
 import { Button, Overline, Pill } from '../components/ui';
@@ -22,18 +22,25 @@ export function Fit() {
   const { openOverlay } = useApp();
   const [sel, setSel] = useState(0);
   return (
-    <Screen label="How each path fits you">
-      <JourneySteps current={3} />
-      <header className="page-head">
+    <Screen journey={3} label="How each path fits you">
+      <Reveal as="header" className="page-head">
         <h1 className="t-h1">How Each Path Fits You</h1>
         <p className="t-body-lg muted">Your strengths compared with what each path needs.</p>
-      </header>
+      </Reveal>
 
-      <div className="stack-8">
+      <Reveal className="stack-8" delay={80}>
         <Overline>YOUR 3 PATHS</Overline>
         <div className="path-tabs" role="tablist">
           {SELECTED.map((s, i) => (
-            <button key={s.title} type="button" role="tab" aria-selected={i === sel} className={`path-tab ${i === sel ? 'is-on' : ''}`} onClick={() => setSel(i)}>
+            <button
+              key={s.title}
+              type="button"
+              role="tab"
+              aria-selected={i === sel}
+              className={`path-tab ${i === sel ? 'is-on' : ''}`}
+              style={{ '--i': i } as React.CSSProperties}
+              onClick={() => setSel(i)}
+            >
               <span className="path-emoji" aria-hidden>
                 {s.emoji}
               </span>
@@ -44,16 +51,18 @@ export function Fit() {
             </button>
           ))}
         </div>
-      </div>
+      </Reveal>
 
-      <section className="card card-card stack-8">
+      <Reveal as="section" className="card card-card stack-8" delay={120}>
         <div className="row-between align-start">
           <div className="stack-4">
             <span className="t-overline terracotta">STRENGTHS VS. ROLE NEEDS</span>
             <h2 className="t-h3">Yoga Instructor</h2>
           </div>
           <div className="stack-0 align-end">
-            <span className="t-h2 terracotta">86%</span>
+            <span className="t-h2 terracotta">
+              <CountUp to={86} suffix="%" delay={200} />
+            </span>
             <span className="t-label muted">overall fit</span>
           </div>
         </div>
@@ -74,12 +83,12 @@ export function Fit() {
           </div>
         </div>
         <div className="center-x">
-          <RadarChart axes={FIT_AXES} radius={92} mode="compare" ariaLabel="Your strengths compared with yoga instructor role needs; biggest gap is body knowledge and anatomy." />
+          <RadarChart axes={FIT_AXES} radius={92} mode="compare" animate ariaLabel="Your strengths compared with yoga instructor role needs; biggest gap is body knowledge and anatomy." />
         </div>
-      </section>
+      </Reveal>
 
       <div className="stack-12">
-        <section className="card card-mid stack-8">
+        <Reveal as="section" className="card card-mid stack-8">
           <div className="row gap-8">
             <Icon name="check-circle" size={20} color="var(--primary-key)" />
             <h3 className="t-label-lg strong-green">Where you’re already strong</h3>
@@ -91,9 +100,9 @@ export function Fit() {
           <div className="row gap-8 t-label strong-green" style={{ paddingTop: 8 }}>
             <Icon name="chart" size={16} /> Immediate asset for retreat design &amp; student retention
           </div>
-        </section>
+        </Reveal>
 
-        <section className="card card-card stack-8">
+        <Reveal as="section" className="card card-card stack-8" delay={60}>
           <div className="row-between">
             <div className="row gap-8">
               <Icon name="milestone" size={20} color="var(--tertiary-key)" />
@@ -114,25 +123,25 @@ export function Fit() {
               <strong className="t-body strong-green">Try 2 classes &amp; talk to 2 working instructors</strong>
             </div>
           </div>
-        </section>
+        </Reveal>
 
-        <section className="card card-low row gap-12">
+        <Reveal as="section" variant="left" className="card card-low row gap-12">
           <Photo name="elena" alt="Elena Rostova" round style={{ width: 44, height: 44 }} />
           <div className="stack-2">
             <strong className="t-label strong-green">Elena Rostova · Pivoted at 51</strong>
             <span className="t-body muted">“My years of running workshops made teaching a class feel natural.”</span>
           </div>
-        </section>
+        </Reveal>
       </div>
 
-      <div className="stack-10">
+      <Reveal className="stack-10">
         <Button variant="primary" onClick={() => openOverlay('planReady')}>
           Build My 100-Day Yoga Plan →
         </Button>
         <Button variant="soft" icon="chat-lines" onClick={() => nav(R.coachGuide)}>
           Discuss this gap with AI Coach
         </Button>
-      </div>
+      </Reveal>
     </Screen>
   );
 }
