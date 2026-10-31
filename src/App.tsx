@@ -81,8 +81,8 @@ function Device() {
       <span className="device-island" aria-hidden />
       <Routes>
         <Route path={R.welcome} element={<Welcome />} />
-        <Route path={R.coachGuide} element={<Coach guiding />} />
-        <Route path={R.coach} element={<Coach />} />
+        <Route path={R.coachGuide} element={<Coach key="guided" guiding />} />
+        <Route path={R.coach} element={<Coach key="everyday" />} />
         <Route path={R.strengths} element={<Strengths />} />
         <Route path={R.possibilities} element={<Possibilities />} />
         <Route path={R.fit} element={<Fit />} />

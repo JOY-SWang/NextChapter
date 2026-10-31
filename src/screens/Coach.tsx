@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
@@ -45,8 +45,8 @@ const SOFAR = [
  * "Strengths so far" — expand / collapse. The body animates its height,
  * so the conversation below slides up or down to make room.
  */
-function StrengthsSoFar() {
-  const [open, setOpen] = useState(true);
+function StrengthsSoFar({ defaultOpen = true }: { defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   const bodyId = useId();
   return (
     <section className={`card card-card strengths-sofar ${open ? 'is-open' : ''}`}>
@@ -81,6 +81,87 @@ function StrengthsSoFar() {
   );
 }
 
+/** Joyy's "thinking" bubble: sparkle + label + three looping dots. */
+function ThinkingTurn() {
+  const { openOverlay } = useApp();
+  return (
+    <div className="turn turn-joyy turn-enter" role="status" aria-label="Joyy is thinking">
+      <JoyyAvatar size={34} onClick={() => openOverlay('joyyProfile')} />
+      <div className="turn-body">
+        <span className="turn-name">Joyy</span>
+        <div className="bubble bubble-joyy bubble-thinking">
+          <Icon name="sparkle" size={18} color="var(--primary-key)" className="thinking-spark" />
+          <span>Joyy is thinking</span>
+          <span className="thinking-dots" aria-hidden>
+            <i />
+            <i />
+            <i />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type ChatMsg = { id: number; from: 'sarah' | 'joyy'; text: string };
+
+/**
+ * Simulated replies — Joyy picks relevant knowledge and resources for Sarah's goals;
+ * it does not claim to have learned a new profession.
+ */
+function simulatedReply(text: string) {
+  const t = text.toLowerCase();
+  if (/yoga|teach|class|studio|ryt/.test(t))
+    return 'Good question. For yoga teaching, a gentle first step is trying two beginner classes and talking with a working instructor — it shows you what the role is really like before you commit to training. Want me to add that to your plan?';
+  if (/time|hour|week|busy|tired|energy/.test(t))
+    return 'Let’s protect your energy. We can keep this to about 8 hours a week and move things around whenever life gets full. Which days usually feel lightest for you?';
+  if (/money|income|pay|cost|afford|price/.test(t))
+    return 'That matters. I can pull together typical costs and earnings for the paths you’re considering, so you can compare them side by side. Should I start with yoga teaching or mentoring?';
+  if (/mentor|coach|help people|career/.test(t))
+    return 'Your 20 years of mentoring carry straight into this. I can suggest a few ways to start small — like one pro-bono mentoring session a month — to see how it feels.';
+  if (/scared|afraid|worried|nervous|unsure|doubt/.test(t))
+    return 'It’s completely normal to feel that way. Nothing here is a commitment — we’re only testing small steps so you can decide with real experience. What feels most uncertain right now?';
+  return 'Thanks for sharing that, Sarah. I’ll keep it in mind as I suggest next steps. What would you like to explore next — your strengths, possible paths, or how to fit this into your week?';
+}
+
+/**
+ * Chat UI interaction + simulated AI thinking:
+ * send → Sarah's bubble appears → after 100 ms Joyy's thinking bubble (looping dots)
+ * → after a short "thinking" pause it is replaced by Joyy's reply.
+ */
+function useSimulatedChat() {
+  const [messages, setMessages] = useState<ChatMsg[]>([]);
+  const [thinking, setThinking] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
+  const timers = useRef<number[]>([]);
+  const nextId = useRef(0);
+
+  useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
+  useEffect(() => {
+    if (messages.length || thinking) endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, thinking]);
+
+  const later = (fn: () => void, ms: number) => timers.current.push(window.setTimeout(fn, ms));
+
+  const send = (raw: string) => {
+    const text = raw.trim();
+    if (!text || busy) return false;
+    setBusy(true);
+    setMessages((m) => [...m, { id: nextId.current++, from: 'sarah', text }]);
+    later(() => setThinking(true), 100);
+    const thinkFor = 1500 + Math.min(1200, text.length * 18);
+    later(() => {
+      setThinking(false);
+      setMessages((m) => [...m, { id: nextId.current++, from: 'joyy', text: simulatedReply(text) }]);
+      setBusy(false);
+    }, 100 + thinkFor);
+    return true;
+  };
+
+  return { messages, thinking, busy, send, endRef };
+}
+
 /**
  * P2 - AI Coach Guiding (first-time flow, `guiding`) and P2.2 - AI Coach (everyday, with tab bar).
  * Same conversation; the guided version shows the journey steps and leads into P3.
@@ -90,14 +171,21 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
   const { openOverlay } = useApp();
   const [draft, setDraft] = useState('');
   const sendRipple = useRipple();
+  const chat = useSimulatedChat();
 
   const dock = (
-    <form className="chat-input" onSubmit={(e) => (e.preventDefault(), setDraft(''))}>
+    <form
+      className="chat-input"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (chat.send(draft)) setDraft('');
+      }}
+    >
       <button type="button" className="icon-btn" aria-label="Voice input">
         <Icon name="mic" size={22} color="var(--on-surface-variant)" />
       </button>
       <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Share anything..." aria-label="Message Joyy" />
-      <button type="submit" className="send-btn ripple-host" aria-label="Send message" {...sendRipple.handlers}>
+      <button type="submit" className="send-btn ripple-host" aria-label="Send message" disabled={!draft.trim() || chat.busy} {...sendRipple.handlers}>
         {sendRipple.layer}
         <Icon name="send" size={20} color="var(--primary-on)" />
       </button>
@@ -108,7 +196,7 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
     <Screen tab={guiding ? undefined : 'coach'} journey={guiding ? 1 : undefined} dock={dock} label={guiding ? 'AI Coach – guided conversation' : 'AI Coach'}>
       <h1 className="t-h1">Unpacking Next Chapter</h1>
 
-      <StrengthsSoFar />
+      <StrengthsSoFar defaultOpen={guiding} />
 
       <div className="feed">
         <JoyyTurn>
@@ -161,6 +249,20 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
             </Button>
           </div>
         </section>
+
+        <div className="live-feed" aria-live="polite">
+          {chat.messages.map((m) =>
+            m.from === 'sarah' ? (
+              <SarahTurn key={m.id}>{m.text}</SarahTurn>
+            ) : (
+              <JoyyTurn key={m.id}>
+                <span className="bubble-in">{m.text}</span>
+              </JoyyTurn>
+            ),
+          )}
+          {chat.thinking && <ThinkingTurn />}
+        </div>
+        <div ref={chat.endRef} className="feed-end" aria-hidden />
       </div>
     </Screen>
   );

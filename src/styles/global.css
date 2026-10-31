@@ -2806,3 +2806,92 @@ button:disabled {
     transform: none;
   }
 }
+
+/* ═════════════════ Chat interaction + simulated thinking (P2 / P2.2) ═════════════════ */
+.live-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.live-feed:empty {
+  margin-top: -20px;
+}
+.feed-end {
+  height: 0;
+  margin-top: -20px;
+  /* keep the newest message clear of the chat input and tab bar when scrolled into view */
+  scroll-margin-bottom: calc(var(--home-indicator-h) + 96px);
+}
+.has-nav .feed-end {
+  scroll-margin-bottom: calc(var(--bottom-nav-h) + var(--home-indicator-h) + 96px);
+}
+.live-feed > .turn {
+  animation: turn-in 0.36s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.turn-user.turn {
+  transform-origin: 100% 0;
+}
+@keyframes turn-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+.bubble-thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--surface-card);
+  color: var(--on-surface-variant);
+  font-size: 15px;
+  line-height: 20px;
+}
+.thinking-spark {
+  flex: none;
+  animation: spark-pulse 1.6s ease-in-out infinite;
+}
+@keyframes spark-pulse {
+  50% {
+    transform: scale(0.82) rotate(12deg);
+    opacity: 0.65;
+  }
+}
+.thinking-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 2px;
+}
+.thinking-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary-muted);
+  animation: thinking-dot 1.2s ease-in-out infinite;
+}
+.thinking-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.thinking-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes thinking-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.bubble-in {
+  display: block;
+  animation: rise 0.3s ease both;
+}
+.send-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
