@@ -2895,3 +2895,201 @@ button:disabled {
   opacity: 0.45;
   cursor: default;
 }
+
+/* ═════════════════ Plan ready — Joyy avatar ═════════════════ */
+.plan-avatar {
+  display: grid;
+  place-items: center;
+  margin: 6px 0 2px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary-container) 55%, transparent);
+}
+
+/* ═════════════════ Meet Joyy — welcome animation ═════════════════
+   0–300ms     Joyy pops up from below (scale .85 → 1.05 → 1)
+   300–800ms   right eye closes into a wink, right leaf waves (±12°)
+   800–1200ms  "Hi! I'm Joyy!" bubble springs in
+   1200–1600ms title, intro, three promises and CTA reveal in turn
+   1600ms+     idle: gentle breathing + floating                    */
+.joyy-hero-intro .joyy-hero-mascot {
+  display: block;
+  line-height: 0;
+}
+.joyy-pop {
+  transform-origin: 50% 100%;
+  animation: joyy-pop 0.3s cubic-bezier(0.3, 0.9, 0.4, 1) both;
+}
+@keyframes joyy-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.85);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.05);
+  }
+  100% {
+    transform: none;
+  }
+}
+.joyy-welcome .mound {
+  animation: mound-in 0.35s ease-out both;
+}
+@keyframes mound-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+}
+
+/* SVG parts */
+.joyy-animated .joyy-leaf-right {
+  transform-box: fill-box;
+  transform-origin: 0% 80%;
+  animation: leaf-wave 0.5s ease-in-out 0.3s both;
+}
+@keyframes leaf-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-12deg);
+  }
+  60% {
+    transform: rotate(12deg);
+  }
+  85% {
+    transform: rotate(-4deg);
+  }
+}
+.joyy-animated .joyy-eye-right-open {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation: eye-close 0.48s ease-in 0s both;
+}
+@keyframes eye-close {
+  0%,
+  66% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0.1);
+  }
+}
+.joyy-animated .joyy-eye-wink {
+  animation: wink-in 0.5s ease-out 0s both;
+}
+@keyframes wink-in {
+  0%,
+  70% {
+    opacity: 0;
+  }
+}
+.joyy-animated .joyy-eye-left {
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation: eye-blink 4.6s ease-in-out 2.6s infinite;
+}
+@keyframes eye-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.12);
+  }
+}
+/* Idle (1600ms+) */
+.joyy-animated .joyy-figure {
+  animation: joyy-float 3.2s ease-in-out 1.6s infinite alternate;
+}
+@keyframes joyy-float {
+  to {
+    transform: translateY(-4px);
+  }
+}
+.joyy-animated .joyy-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: joyy-breathe 1.6s ease-in-out 1.6s infinite alternate;
+}
+@keyframes joyy-breathe {
+  to {
+    transform: scale(1.012, 1.03);
+  }
+}
+.joyy-animated .joyy-shadow {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: joyy-shadow 3.2s ease-in-out 1.6s infinite alternate;
+}
+@keyframes joyy-shadow {
+  to {
+    transform: scale(0.86);
+    opacity: 0.7;
+  }
+}
+
+/* Speech bubble (800–1200ms): fade-in + spring */
+.joyy-welcome .speech-soft {
+  transform-origin: 85% 90%;
+  animation: bubble-spring 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) 0.8s both;
+}
+@keyframes bubble-spring {
+  0% {
+    opacity: 0;
+    transform: rotate(8deg) scale(0.5) translate(14px, 10px);
+  }
+  55% {
+    opacity: 1;
+    transform: rotate(8deg) scale(1.08);
+  }
+  80% {
+    transform: rotate(8deg) scale(0.97);
+  }
+  100% {
+    transform: rotate(8deg) scale(1);
+  }
+}
+
+/* Sparkles pop in with the bubble, then twinkle while idle */
+.welcome-spark {
+  position: absolute;
+  line-height: 0;
+  animation:
+    spark-in 0.35s cubic-bezier(0.3, 1.5, 0.5, 1) calc(0.85s + var(--s, 0) * 0.08s) both,
+    spark-twinkle 2.4s ease-in-out calc(1.6s + var(--s, 0) * 0.5s) infinite;
+}
+@keyframes spark-in {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+}
+@keyframes spark-twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7) rotate(20deg);
+    opacity: 0.55;
+  }
+}
+
+/* Copy and promises (1200–1600ms): staggered reveal */
+.joyy-welcome-body .stagger {
+  animation: welcome-rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) calc(1.2s + var(--k, 0) * 0.07s) both;
+}
+@keyframes welcome-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}

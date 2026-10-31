@@ -123,28 +123,42 @@ function MeetJoyy() {
   ] as const;
   return (
     <OverlayFrame kind="modal" label="Meet Joyy, your AI coach">
-      <div className="joyy-hero joyy-hero-intro">
+      <div className="joyy-hero joyy-hero-intro joyy-welcome">
         <span className="mound" />
-        <Joyy mood="wink" size={174} className="joyy-hero-mascot" />
+        <span className="joyy-pop joyy-hero-mascot">
+          <Joyy mood="wink" size={174} animated />
+        </span>
         <div className="speech speech-soft">
           Hi!
           <br />
           I’m Joyy!
         </div>
-        <Sparkle size={14} style={{ position: 'absolute', left: 262, top: 40 }} />
-        <Sparkle size={12} style={{ position: 'absolute', right: 40, top: 110 }} />
-        <Sparkle size={10} style={{ position: 'absolute', left: 132, top: 30 }} />
-        <Sparkle size={12} style={{ position: 'absolute', left: 40, top: 150 }} />
+        <span className="welcome-spark" style={{ left: 262, top: 40, '--s': 0 } as React.CSSProperties}>
+          <Sparkle size={14} />
+        </span>
+        <span className="welcome-spark" style={{ right: 40, top: 110, '--s': 1 } as React.CSSProperties}>
+          <Sparkle size={12} />
+        </span>
+        <span className="welcome-spark" style={{ left: 132, top: 30, '--s': 2 } as React.CSSProperties}>
+          <Sparkle size={10} />
+        </span>
+        <span className="welcome-spark" style={{ left: 40, top: 150, '--s': 3 } as React.CSSProperties}>
+          <Sparkle size={12} />
+        </span>
         <button type="button" className="icon-btn icon-btn-white modal-close" aria-label="Close" onClick={closeOverlay}>
           <Icon name="close" size={20} stroke={2} />
         </button>
       </div>
-      <div className="modal-body center">
-        <h2 className="t-h1-sm">Your Personal AI Coach for What’s Next</h2>
-        <p className="t-body-md muted">I’m here to listen, understand your experience, and help you explore new possibilities.</p>
+      <div className="modal-body center joyy-welcome-body">
+        <h2 className="t-h1-sm stagger" style={{ '--k': 0 } as React.CSSProperties}>
+          Your Personal AI Coach for What’s Next
+        </h2>
+        <p className="t-body-md muted stagger" style={{ '--k': 1 } as React.CSSProperties}>
+          I’m here to listen, understand your experience, and help you explore new possibilities.
+        </p>
         <div className="promises">
-          {promises.map((p) => (
-            <div key={p.title} className="promise">
+          {promises.map((p, i) => (
+            <div key={p.title} className="promise stagger" style={{ '--k': 2 + i } as React.CSSProperties}>
               <span className={`icon-tile tile-${p.tone}`} style={{ width: 48, height: 48, borderRadius: 14 }}>
                 <Icon name={p.icon} size={24} />
               </span>
@@ -153,10 +167,10 @@ function MeetJoyy() {
             </div>
           ))}
         </div>
-        <Button pill size="lg" trailing="arrow-right" onClick={start}>
+        <Button pill size="lg" trailing="arrow-right" onClick={start} className="stagger" style={{ '--k': 5 } as React.CSSProperties}>
           Let’s Chat, Joyy!
         </Button>
-        <button type="button" className="unstyled text-link" onClick={start}>
+        <button type="button" className="unstyled text-link stagger" style={{ '--k': 6 } as React.CSSProperties} onClick={start}>
           Maybe later
         </button>
       </div>
@@ -219,8 +233,8 @@ function PlanReady() {
   return (
     <OverlayFrame kind="modal" label="Your plan is ready">
       <div className="modal-pad center">
-        <span className="plan-icon">
-          <Icon name="sprout" size={34} color="var(--primary-key)" />
+        <span className="plan-avatar">
+          <JoyyAvatar size={84} />
         </span>
         <Pill tone="green" className="pill-overline">
           A NEW CHAPTER BEGINS
