@@ -54,10 +54,10 @@ content is enough). The script maps each slot to its Figma node in `scripts/fetc
 | `/possibilities` | P4 | Journey step 3 — reached only from P3 and “Revisit My Possibilities” |
 | `/fit` | P5 | “Build My 100-Day Yoga Plan” opens **Plan ready** |
 | `/coach` | P2.2 - AI Coach | AI Coach tab |
-| `/discover` | P4.2 - Discover Your Next Steps | Discover tab once a path is chosen |
-| `/roadmap` | P6 - Roadmap | Long-term goal → milestones → next action |
+| `/discover` | P4.2 - Explore Your Next Steps | **Explore** tab once a path is chosen |
+| `/roadmap` | P6 - Roadmap | **My Plan** tab — “My 100-Day Roadmap”: long-term goal → milestones → next action |
 | `/community` | P7 - Community | Peer circles, human guide, RSVP |
-| `/community/my-day` | P7.2 - My Day | Schedule fed by Community, Discover and Roadmap |
+| `/community/my-day` | P7.2 - My Day | Schedule fed by Community, Explore and My Plan |
 | `/me` | User Page | Avatar in the top bar |
 | `/messages` | P8 - Messages | 💬 in the top bar |
 | `/joyy` | Joyy Settings | From the ≡ drawer or Joyy’s profile |

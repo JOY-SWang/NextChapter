@@ -257,6 +257,34 @@ const STROKE: Record<string, ReactNode> = {
       <path d="M20 20l-4.2-4.2" />
     </>
   ),
+  /* Bottom navigation — four clearly different line icons */
+  'nav-coach': (
+    <>
+      <path d="M12 3.6c4.7 0 8.4 3.3 8.4 7.5s-3.7 7.5-8.4 7.5c-1 0-2-.15-2.9-.43L4.6 20.4l1.25-3.9C4.4 15.1 3.6 13.2 3.6 11.1c0-4.2 3.7-7.5 8.4-7.5Z" />
+      <path d="M12 14.3c-1.9-1.35-3.1-2.45-3.1-3.75 0-.98.78-1.7 1.65-1.7.68 0 1.2.38 1.45.9.25-.52.77-.9 1.45-.9.87 0 1.65.72 1.65 1.7 0 1.3-1.2 2.4-3.1 3.75Z" />
+    </>
+  ),
+  'nav-explore': (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.3" />
+      <path d="M15.2 15.2L20 20" />
+    </>
+  ),
+  'nav-plan': (
+    <>
+      <rect x="5" y="4.6" width="14" height="16.4" rx="2.6" />
+      <rect x="9" y="2.8" width="6" height="3.6" rx="1.2" />
+      <path d="M8.8 11h.01M8.8 15h.01M11.8 11h3.6M11.8 15h3.6" />
+    </>
+  ),
+  'nav-community': (
+    <>
+      <circle cx="9" cy="8.2" r="3.1" />
+      <path d="M3.4 19.2c.7-3.2 2.9-5 5.6-5s4.9 1.8 5.6 5" />
+      <circle cx="16.6" cy="8.8" r="2.5" />
+      <path d="M16.2 14.2c2.4.1 4 1.6 4.5 4.3" />
+    </>
+  ),
 };
 
 /** Filled glyphs exported directly from the Figma bottom navigation + top bar. */

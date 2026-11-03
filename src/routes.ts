@@ -6,8 +6,8 @@ export const R = {
   strengths: '/strengths', //     P3 - User Strength
   possibilities: '/possibilities', // P4 - possibilities before choosing a job
   fit: '/fit', //                 P5 - fit comparison after choosing a job
-  discover: '/discover', //       P4.2 - Discover Your Next Steps
-  roadmap: '/roadmap', //         P6 - Roadmap
+  discover: '/discover', //       P4.2 - Explore Your Next Steps (Explore tab)
+  roadmap: '/roadmap', //         P6 - My Plan tab ("My 100-Day Roadmap")
   community: '/community', //     P7 - Community
   myDay: '/community/my-day', //  P7.2 - My Day
   me: '/me', //                   User Page
@@ -32,8 +32,8 @@ export const SCREEN_MAP: { group: string; items: { label: string; to: string; fi
     group: 'Everyday use',
     items: [
       { label: 'AI Coach', to: R.coach, figma: 'P2.2 - AI Coach' },
-      { label: 'Discover next steps', to: R.discover, figma: 'P4.2' },
-      { label: 'Roadmap', to: R.roadmap, figma: 'P6 - Roadmap' },
+      { label: 'Explore next steps', to: R.discover, figma: 'P4.2' },
+      { label: 'My Plan · 100-Day Roadmap', to: R.roadmap, figma: 'P6 - Roadmap' },
       { label: 'Community', to: R.community, figma: 'P7 - Community' },
       { label: 'My Day', to: R.myDay, figma: 'P7.2 - My Day' },
       { label: 'Messages', to: R.messages, figma: 'P8 - Messages' },

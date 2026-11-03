@@ -19,19 +19,19 @@ const STAGES = [
   { n: 4, days: 'Stage 4 · Days 76–100', status: 'Future', title: 'Test Your Next Step', note: 'Get feedback, try assistant teaching and reassess', icon: 'flag' },
 ];
 
-/** P6 - Roadmap ("My Yoga Teaching Journey"): long-term goal → milestones → next action. */
+/** P6 - My Plan tab — "My 100-Day Roadmap": long-term goal → milestones → next action. */
 export function Roadmap() {
   const nav = useNavigate();
   const { openOverlay } = useApp();
   const [open, setOpen] = useState(true);
   return (
-    <Screen tab="roadmap" label="Roadmap">
+    <Screen tab="roadmap" label="My Plan – My 100-Day Roadmap">
       <header className="page-head">
         <button type="button" className="unstyled edit-link" onClick={() => nav(R.coach)}>
           <Icon name="tune" size={15} /> Edit plan
         </button>
-        <h1 className="t-h1">My Yoga Teaching Journey</h1>
-        <p className="t-body muted">Your 100-day exploration plan · Day 12</p>
+        <h1 className="t-h1">My 100-Day Roadmap</h1>
+        <p className="t-body muted">Exploring yoga teaching · Day 12 of 100</p>
       </header>
 
       <section className="card card-low stack-16">

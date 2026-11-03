@@ -8,7 +8,7 @@ import { Button, Overline, Pill, ProgressBar } from '../components/ui';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-type Source = 'Personal' | 'From Roadmap' | 'From Community' | 'From Discover';
+type Source = 'Personal' | 'From My Plan' | 'From Community' | 'From Explore';
 interface Ev {
   time: string;
   icon: string;
@@ -41,7 +41,7 @@ const SCHEDULE: Record<string, Ev[]> = {
       tone: 'var(--secondary-text)',
       title: 'Yoga Teaching Research',
       meta: 'Compare 3 RYT-200 training courses · 1 hr',
-      source: 'From Roadmap',
+      source: 'From My Plan',
       supports: 'Supports Stage 1 milestone',
       to: R.discover,
     },
@@ -72,12 +72,12 @@ const SCHEDULE: Record<string, Ev[]> = {
 
 const SOURCE_TONE: Record<Source, string> = {
   Personal: 'neutral',
-  'From Roadmap': 'neutral-green',
+  'From My Plan': 'neutral-green',
   'From Community': 'terracotta',
-  'From Discover': 'amber',
+  'From Explore': 'amber',
 };
 
-/** P7.2 - My Day: time planning for things booked in Community, Discover and Roadmap. */
+/** P7.2 - My Day: time planning for things booked in Community, Explore and My Plan. */
 export function MyDay() {
   const nav = useNavigate();
   const { addedToMyDay } = useApp();
@@ -109,7 +109,7 @@ export function MyDay() {
 
       <div className="row-between">
         <h2 className="t-h2">Today’s Focus</h2>
-        <Pill tone="neutral">From Roadmap</Pill>
+        <Pill tone="neutral">From My Plan</Pill>
       </div>
       <section className="card card-dark stack-10 focus-card">
         <Overline icon="flag" color="var(--primary-container)">

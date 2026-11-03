@@ -74,15 +74,15 @@ const RECS: Rec[] = [
   },
 ];
 
-/** P4.2 - Discover Your Next Steps (Discover tab once a path is chosen). */
+/** P4.2 - Explore Your Next Steps (Explore tab once a path is chosen). */
 export function Discover() {
   const nav = useNavigate();
   const { openOverlay } = useApp();
   const [filter, setFilter] = useState(0);
   return (
-    <Screen tab="discover" label="Discover your next steps" contentClassName="gap-20">
+    <Screen tab="discover" label="Explore your next steps" contentClassName="gap-20">
       <header className="page-head">
-        <h1 className="t-h1">Discover Your Next Steps</h1>
+        <h1 className="t-h1">Explore Your Next Steps</h1>
         <p className="t-body-lg muted">Classes, courses and people that support Stage 1 of your plan.</p>
       </header>
 
@@ -115,8 +115,8 @@ export function Discover() {
               <span className="t-body muted">Try beginner classes and talk to working teachers before choosing any certification.</span>
             </div>
           </div>
-          <Button variant="strong" icon="tab-roadmap" trailing="arrow-right" className="btn-split" onClick={() => nav(R.roadmap)}>
-            Go to Roadmap
+          <Button variant="strong" icon="nav-plan" trailing="arrow-right" className="btn-split" onClick={() => nav(R.roadmap)}>
+            Go to My Plan
           </Button>
         </div>
       </section>

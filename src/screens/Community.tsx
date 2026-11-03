@@ -115,7 +115,7 @@ export function Community() {
           </span>
           <div className="stack-4">
             <h2 className="t-h3 on-dark">Keep Your Plan In Sync</h2>
-            <p className="t-body on-dark-muted">Had a chat with Elena or finished a trial class? Tell AI Coach and it will update your roadmap.</p>
+            <p className="t-body on-dark-muted">Had a chat with Elena or finished a trial class? Tell AI Coach and it will update your plan.</p>
           </div>
         </div>
         <Button variant="light" trailing="arrow-right" block={false} className="btn-fit" onClick={() => nav(R.coach)}>

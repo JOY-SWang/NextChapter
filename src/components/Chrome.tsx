@@ -75,12 +75,17 @@ export function TopBar({ state = 'default' }: { state?: TopBarState }) {
 
 export type Tab = 'coach' | 'discover' | 'roadmap' | 'community' | null;
 
+/**
+ * AI Coach · Explore · My Plan · Community.
+ * Explore = actively find, try and compare opportunities (courses, activities, roles).
+ * My Plan = the personal plan (page title "My 100-Day Roadmap", with Milestones and My Day inside).
+ */
 const TABS: { id: Exclude<Tab, null>; label: string; icon: string; to: string }[] = [
-  { id: 'coach', label: 'AI Coach', icon: 'tab-coach', to: R.coach },
-  // After a job has been chosen, Discover always opens P4.2 (Discover Your Next Steps).
-  { id: 'discover', label: 'Discover', icon: 'tab-discover', to: R.discover },
-  { id: 'roadmap', label: 'Roadmap', icon: 'tab-roadmap', to: R.roadmap },
-  { id: 'community', label: 'Community', icon: 'tab-community', to: R.community },
+  { id: 'coach', label: 'AI Coach', icon: 'nav-coach', to: R.coach },
+  // After a job has been chosen, Explore always opens P4.2 (Explore Your Next Steps).
+  { id: 'discover', label: 'Explore', icon: 'nav-explore', to: R.discover },
+  { id: 'roadmap', label: 'My Plan', icon: 'nav-plan', to: R.roadmap },
+  { id: 'community', label: 'Community', icon: 'nav-community', to: R.community },
 ];
 
 /** NC / Bottom Nav — active tab is Primary green with white label. */
@@ -94,7 +99,7 @@ export function BottomNav({ active }: { active: Tab }) {
           return (
             <button key={t.id} type="button" className={`tab ${on ? 'tab-active' : ''}`} aria-current={on ? 'page' : undefined} onClick={() => nav(t.to)}>
               <span className="tab-icon">
-                <Icon name={t.icon} size={22} color={on ? 'var(--primary-on)' : 'var(--on-surface-variant)'} />
+                <Icon name={t.icon} size={23} stroke={on ? 2 : 1.8} color={on ? 'var(--primary-on)' : 'var(--on-surface-variant)'} />
               </span>
               <span className="tab-label">{t.label}</span>
             </button>

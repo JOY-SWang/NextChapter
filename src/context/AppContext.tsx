@@ -26,7 +26,7 @@ interface AppState {
   closeOverlay: () => void;
   settings: Settings;
   updateSettings: (patch: Partial<Settings>) => void;
-  /** Events the user has added to My Day from Community / Discover / Roadmap. */
+  /** Events the user has added to My Day from Community / Explore / My Plan. */
   addedToMyDay: string[];
   addToMyDay: (key: string) => void;
   /** Sarah's strength levels (0–100) — Joyy's assessment until she edits them. */
