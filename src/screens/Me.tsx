@@ -9,14 +9,13 @@ import { BALANCE_ORDER, strengthLevel, strongestPairing, toAxes, type StrengthKe
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-const PILLARS: { key: StrengthKey; title: string; sub: string; evidence: string; tags: string[]; addTag?: boolean; growing?: boolean }[] = [
+const PILLARS: { key: StrengthKey; title: string; sub: string; evidence: string; tags: string[]; growing?: boolean }[] = [
   {
     key: 'mentoring',
     title: 'Leadership & Mentoring',
     sub: 'Your strongest area',
     evidence: '“Mentored 35+ tech managers through organizational volatility; certified internal coaching facilitator for mid-tier transitions.”',
     tags: ['1-on-1 Dialogue', 'Empathetic Listening', 'Psychological Safety'],
-    addTag: true,
   },
   {
     key: 'planning',
@@ -183,11 +182,6 @@ export function Me() {
                   {t}
                 </Pill>
               ))}
-              {p.addTag && (
-                <Pill tone="outline" icon="plus">
-                  Tag
-                </Pill>
-              )}
             </div>
           </section>
           );
