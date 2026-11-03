@@ -36,7 +36,7 @@ const PILLARS: { key: StrengthKey; title: string; sub: string; evidence: string;
     title: 'Yoga & Wellness Practice',
     sub: 'Growing interest',
     evidence: '“8 years of personal yoga practice; now learning anatomy basics and breathwork.”',
-    tags: ['Mindful Breath', 'Yoga Asana', 'Anatomy 101'],
+    tags: ['Mindful Breath', 'Yoga Asana', 'Basic Yoga Anatomy'],
     growing: true,
   },
 ];
