@@ -50,7 +50,7 @@ const SCHEDULE: Record<string, Ev[]> = {
       icon: 'people',
       tone: 'var(--tertiary-key)',
       title: 'Peer Circle Gathering',
-      meta: 'Online coffee chat · 5 peers going',
+      meta: 'Online group chat · 5 peers going',
       source: 'From Community',
       supports: 'Supports Stage 1 milestone',
       to: R.community,
