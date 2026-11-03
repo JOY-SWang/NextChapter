@@ -202,7 +202,7 @@ export function Discover() {
             <Icon name="refresh" size={16} /> Interests changed?
           </span>
           <button type="button" className="unstyled row gap-4 t-label terracotta strongest" onClick={() => nav(R.possibilities)}>
-            Revisit My Possibilities <Icon name="arrow-right" size={16} />
+            Explore Another Career Path <Icon name="arrow-right" size={16} />
           </button>
         </div>
       </section>
