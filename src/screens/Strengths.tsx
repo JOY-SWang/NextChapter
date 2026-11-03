@@ -4,18 +4,19 @@ import { Icon } from '../components/Icon';
 import { CountUp, Reveal } from '../components/Motion';
 import { RadarChart } from '../components/RadarChart';
 import { Button, IconTile, Pill } from '../components/ui';
-import { STRENGTH_AXES } from '../data/content';
+import { STRENGTH_META, STRENGTH_ORDER, toAxes } from '../data/content';
+import { useApp } from '../context/AppContext';
 import { R } from '../routes';
-
-const PILLARS = [
-  { icon: 'layers', title: 'Project Planning & Execution', pct: 95, sub: 'Pacing, systems & on-time delivery' },
-  { icon: 'people', title: 'Leadership & Mentoring', pct: 92, sub: 'Psychological safety & unblocking others' },
-  { icon: 'chat-lines', title: 'Communication & Facilitation', pct: 88, sub: 'Translating chaos into quiet clarity' },
-];
 
 /** P3 - User Strength ("Your Strengths Snapshot"). */
 export function Strengths() {
   const nav = useNavigate();
+  const { strengths } = useApp();
+  // Top three strengths — follows Sarah's own edits from the User page.
+  const pillars = [...STRENGTH_ORDER]
+    .sort((a, b) => strengths[b] - strengths[a])
+    .slice(0, 3)
+    .map((k) => ({ ...STRENGTH_META[k], pct: strengths[k] }));
   return (
     <Screen journey={2} label="Your strengths snapshot">
       <Reveal as="header" className="page-head">
@@ -34,7 +35,13 @@ export function Strengths() {
           </Pill>
         </div>
         <div className="center-x">
-          <RadarChart axes={STRENGTH_AXES} radius={96} mode="mastery" animate ariaLabel="Strengths map: Planning 95%, Communication 88%, Mentoring 92%, Adaptability 80%, Wellness 72%, Problem-solving 86%" />
+          <RadarChart
+            axes={toAxes(STRENGTH_ORDER, strengths)}
+            radius={96}
+            mode="mastery"
+            animate
+            ariaLabel={`Strengths map: ${STRENGTH_ORDER.map((k) => `${STRENGTH_META[k].label} ${strengths[k]}%`).join(', ')}`}
+          />
         </div>
         <div className="legend">
           <span>
@@ -60,7 +67,7 @@ export function Strengths() {
         <Reveal as="h2" className="t-h3">
           Your top strengths
         </Reveal>
-        {PILLARS.map((p, i) => (
+        {pillars.map((p, i) => (
           <Reveal as="button" variant="left" delay={i * 110} key={p.title} type="button" className="unstyled card card-card pillar">
             <IconTile icon={p.icon} tone="neutral" size={40} radius={12} iconSize={20} />
             <span className="grow stack-2">

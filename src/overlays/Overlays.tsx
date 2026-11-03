@@ -7,6 +7,7 @@ import { Photo } from '../components/Photo';
 import { Button, Pill, Toggle, TopicChip } from '../components/ui';
 import { R } from '../routes';
 import { KNOWLEDGE_TOPICS } from '../data/content';
+import { EditStrengths } from './EditStrengths';
 
 /* ───────────────────────── Settings drawer (≡) ───────────────────────── */
 function SettingsDrawer() {
@@ -337,6 +338,7 @@ export function OverlayHost() {
     rsvp: <AddToMyDay id="rsvp" />,
     chatBooked: <AddToMyDay id="chatBooked" />,
     trialClass: <AddToMyDay id="trialClass" />,
+    editStrengths: <EditStrengths />,
   };
   return overlay ? <>{map[overlay]}</> : null;
 }

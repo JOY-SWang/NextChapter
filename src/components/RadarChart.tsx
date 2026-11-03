@@ -12,8 +12,11 @@ export interface RadarAxis {
 interface Props {
   axes: RadarAxis[];
   radius?: number;
-  /** "mastery" colours vertex dots by level (P3); "compare" draws the dashed role polygon (P5). */
-  mode?: 'mastery' | 'plain' | 'compare';
+  /**
+   * "mastery" colours vertex dots by level (P3); "compare" draws the dashed role polygon (P5);
+   * "edit" draws `compare` as a dashed outline (Joyy's assessment) behind the edited shape.
+   */
+  mode?: 'mastery' | 'plain' | 'compare' | 'edit';
   /** Scroll-triggered: the shapes grow out from the centre once the chart enters view. */
   animate?: boolean;
   ariaLabel: string;
@@ -68,6 +71,16 @@ export function RadarChart({ axes, radius = 100, mode = 'plain', animate = false
               strokeDasharray="5 4"
             />
           </g>
+        )}
+        {mode === 'edit' && (
+          <polygon
+            points={poly(axes.map((a) => a.compare ?? a.value))}
+            fill="none"
+            stroke="var(--outline)"
+            strokeWidth={1.6}
+            strokeDasharray="4 4"
+            strokeLinejoin="round"
+          />
         )}
         <g className="radar-shape" style={grow(mode === 'compare' ? 280 : 0)}>
           <polygon

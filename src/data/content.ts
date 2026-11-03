@@ -15,24 +15,38 @@ export const KNOWLEDGE_TOPICS: { label: string; tone: 'green' | 'neutral' | 'amb
 ];
 
 /** P3 "Your strengths map" — same six dimensions and values as the Me page. */
-export const STRENGTH_AXES: RadarAxis[] = [
-  { label: 'Planning', sub: '95%', value: 0.95 },
-  { label: 'Communication', sub: '88%', value: 0.88 },
-  { label: 'Mentoring', sub: '92%', value: 0.92 },
-  { label: 'Adaptability', sub: '80%', value: 0.8 },
-  { label: 'Wellness', sub: '72%', value: 0.72 },
-  { label: 'Problem-solving', sub: '86%', value: 0.86 },
-];
+/* ───────────── Sarah's strengths (editable from the User page) ───────────── */
+export type StrengthKey = 'planning' | 'communication' | 'mentoring' | 'adaptability' | 'wellness' | 'problemSolving';
+export type StrengthValues = Record<StrengthKey, number>; // 0–100
 
-/** Me page "Strengths balance" (same data, rotated as in Figma). */
-export const BALANCE_AXES: RadarAxis[] = [
-  { label: 'Mentoring', sub: '92%', value: 0.92 },
-  { label: 'Planning', sub: '95%', value: 0.95 },
-  { label: 'Communication', sub: '88%', value: 0.88 },
-  { label: 'Wellness', sub: '72%', value: 0.72 },
-  { label: 'Problem-solving', sub: '86%', value: 0.86 },
-  { label: 'Adaptability', sub: '80%', value: 0.8 },
-];
+export const STRENGTH_META: Record<StrengthKey, { label: string; icon: string; title: string; sub: string }> = {
+  planning: { label: 'Planning', icon: 'layers', title: 'Project Planning & Execution', sub: 'Pacing, systems & on-time delivery' },
+  communication: { label: 'Communication', icon: 'chat-lines', title: 'Communication & Facilitation', sub: 'Translating chaos into quiet clarity' },
+  mentoring: { label: 'Mentoring', icon: 'people', title: 'Leadership & Mentoring', sub: 'Psychological safety & unblocking others' },
+  adaptability: { label: 'Adaptability', icon: 'refresh', title: 'Adaptability', sub: 'Steady through change' },
+  wellness: { label: 'Wellness', icon: 'lotus', title: 'Yoga & Wellness Practice', sub: '8 years of personal practice' },
+  problemSolving: { label: 'Problem-solving', icon: 'lightbulb', title: 'Problem-solving', sub: 'Untangling complex situations' },
+};
+
+/** Joyy's assessment from the AI Coach conversation (the starting point the user can edit). */
+export const JOYY_STRENGTHS: StrengthValues = { planning: 95, communication: 88, mentoring: 92, adaptability: 80, wellness: 72, problemSolving: 86 };
+
+/** Axis order of the P3 strengths map and of the User page balance chart (rotated as in Figma). */
+export const STRENGTH_ORDER: StrengthKey[] = ['planning', 'communication', 'mentoring', 'adaptability', 'wellness', 'problemSolving'];
+export const BALANCE_ORDER: StrengthKey[] = ['mentoring', 'planning', 'communication', 'wellness', 'problemSolving', 'adaptability'];
+
+export const toAxes = (order: StrengthKey[], values: StrengthValues, compare?: StrengthValues): RadarAxis[] =>
+  order.map((k) => ({ label: STRENGTH_META[k].label, sub: `${values[k]}%`, value: values[k] / 100, compare: compare ? compare[k] / 100 : undefined }));
+
+export const strengthLevel = (v: number) => (v >= 90 ? 'Very strong' : v >= 80 ? 'Strong' : v >= 60 ? 'Developing' : 'Emerging');
+
+/** The two highest strengths, named in chart order (e.g. "Mentoring + Planning"). */
+export const strongestPairing = (values: StrengthValues) => {
+  const top = [...BALANCE_ORDER].sort((a, b) => values[b] - values[a]).slice(0, 2);
+  return BALANCE_ORDER.filter((k) => top.includes(k)).map((k) => STRENGTH_META[k].label).join(' + ');
+};
+
+export const sameStrengths = (a: StrengthValues, b: StrengthValues) => STRENGTH_ORDER.every((k) => a[k] === b[k]);
 
 /** P5 "Strengths vs. role needs" for Yoga Instructor. */
 export const FIT_AXES: RadarAxis[] = [

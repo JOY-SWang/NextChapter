@@ -1,44 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
 import { Photo } from '../components/Photo';
 import { RadarChart } from '../components/RadarChart';
 import { Button, Overline, Pill } from '../components/ui';
-import { BALANCE_AXES } from '../data/content';
+import { BALANCE_ORDER, strengthLevel, strongestPairing, toAxes, type StrengthKey } from '../data/content';
+import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-const PILLARS = [
+const PILLARS: { key: StrengthKey; title: string; sub: string; evidence: string; tags: string[]; addTag?: boolean; growing?: boolean }[] = [
   {
+    key: 'mentoring',
     title: 'Leadership & Mentoring',
     sub: 'Your strongest area',
-    pct: 92,
-    rating: 'Very strong',
     evidence: '“Mentored 35+ tech managers through organizational volatility; certified internal coaching facilitator for mid-tier transitions.”',
     tags: ['1-on-1 Dialogue', 'Empathetic Listening', 'Psychological Safety'],
     addTag: true,
   },
   {
+    key: 'planning',
     title: 'Project Planning & Execution',
     sub: '20 years of delivery',
-    pct: 95,
-    rating: 'Very strong',
     evidence: '“20 years orchestrating multi-million budgets, complex program rollouts, and calming stakeholder anxiety during critical go-lives.”',
     tags: ['Budget Stewardship', 'Milestone Roadmapping', 'Boundary Setting'],
   },
   {
+    key: 'communication',
     title: 'Communication & Facilitation',
     sub: 'Clear, calm explainer',
-    pct: 88,
-    rating: 'Strong',
     evidence: '“Experienced keynote presenter, interactive workshop host for cross-functional leaders, and creator of quiet consensus.”',
     tags: ['Story Crafting', 'Conflict De-escalation'],
   },
   {
+    key: 'wellness',
     title: 'Yoga & Wellness Practice',
     sub: 'Growing interest',
-    pct: 72,
-    rating: 'Developing',
     evidence: '“8 years of personal yoga practice; now learning anatomy basics and breathwork.”',
     tags: ['Mindful Breath', 'Yoga Asana', 'Anatomy 101'],
     growing: true,
@@ -48,7 +45,23 @@ const PILLARS = [
 /** User Page (Me) — opened from the avatar in the top bar. */
 export function Me() {
   const nav = useNavigate();
+  const { strengths, strengthsEditedAt, openOverlay } = useApp();
   const [tab, setTab] = useState(0);
+
+  // Brief confirmation in the balance card after the edit sheet saves.
+  const [justSaved, setJustSaved] = useState(false);
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    setJustSaved(true);
+    const t = window.setTimeout(() => setJustSaved(false), 4000);
+    return () => window.clearTimeout(t);
+  }, [strengths]);
+
+  const editedTime = strengthsEditedAt ? new Date(strengthsEditedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : null;
   return (
     <Screen top="profile" tab={null} label="My profile and strengths">
       <section className="card card-card stack-12">
@@ -92,26 +105,41 @@ export function Me() {
           </span>
         </div>
         <p className="t-body muted">Your strengths keep growing as you try new things. Edit them any time.</p>
-        <span className="row gap-6 t-label muted">
-          <Icon name="refresh" size={14} /> Updated yesterday after your AI Coach chat
-        </span>
+        {editedTime ? (
+          <span className="row gap-6 t-label edited-note">
+            <Icon name="pencil" size={14} /> Edited by you today at {editedTime}
+          </span>
+        ) : (
+          <span className="row gap-6 t-label muted">
+            <Icon name="refresh" size={14} /> Updated yesterday after your AI Coach chat
+          </span>
+        )}
       </section>
 
       <section className="card card-card stack-12">
         <div className="row-between">
           <h2 className="t-h3">Strengths balance</h2>
-          <button type="button" className="add-pill soft">
+          <button type="button" className="add-pill soft" onClick={() => openOverlay('editStrengths')} aria-label="Edit strengths">
             <Icon name="pencil" size={14} /> Edit
           </button>
         </div>
+        {justSaved && (
+          <div className="toast" role="status">
+            <Icon name="check-circle" size={18} /> Strengths saved — Joyy will use your levels from now on.
+          </div>
+        )}
         <div className="center-x">
-          <RadarChart axes={BALANCE_AXES} radius={92} ariaLabel="Strengths balance across six areas" />
+          <RadarChart
+            axes={toAxes(BALANCE_ORDER, strengths)}
+            radius={92}
+            ariaLabel={`Strengths balance: ${BALANCE_ORDER.map((k) => `${k === 'problemSolving' ? 'problem-solving' : k} ${strengths[k]}%`).join(', ')}`}
+          />
         </div>
         <div className="pairing">
           <span className="row gap-8 t-body">
             <Icon name="lightbulb" size={18} color="var(--secondary-text)" /> Strongest pairing:
           </span>
-          <strong className="t-label strong-green">Mentoring + Planning</strong>
+          <strong className="t-label strong-green">{strongestPairing(strengths)}</strong>
         </div>
       </section>
 
@@ -120,7 +148,9 @@ export function Me() {
         <span className="t-label muted">Top 4 of 6</span>
       </div>
       <div className="stack-20">
-        {PILLARS.map((p) => (
+        {PILLARS.map((p) => {
+          const pct = strengths[p.key];
+          return (
           <section key={p.title} className="card card-card stack-8">
             {p.growing && (
               <Pill tone="terracotta" icon="arrow-right" style={{ alignSelf: 'flex-start' }}>
@@ -132,15 +162,15 @@ export function Me() {
                 <h3 className="t-h3">{p.title}</h3>
                 <span className={`t-label ${p.growing ? 'terracotta' : 'muted'}`}>{p.sub}</span>
               </div>
-              <span className={`t-h3 ${p.growing ? 'terracotta' : 'strong-green'}`}>{p.pct}%</span>
+              <span className={`t-h3 ${p.growing ? 'terracotta' : 'strong-green'}`}>{pct}%</span>
             </div>
             <div className="stack-6">
               <div className="row-between t-label">
                 <span className="muted">Self-rating</span>
-                <span className={p.growing ? 'terracotta' : 'strong-green'}>{p.rating}</span>
+                <span className={p.growing ? 'terracotta' : 'strong-green'}>{strengthLevel(pct)}</span>
               </div>
               <div className="rating-track">
-                <span style={{ width: `${p.pct}%`, background: p.growing ? 'var(--tertiary-key)' : 'var(--primary-key)' }} />
+                <span style={{ width: `${pct}%`, background: p.growing ? 'var(--tertiary-key)' : 'var(--primary-key)' }} />
               </div>
             </div>
             <div className="evidence">
@@ -160,7 +190,8 @@ export function Me() {
               )}
             </div>
           </section>
-        ))}
+          );
+        })}
       </div>
 
       <button type="button" className="unstyled card card-low add-strength">
