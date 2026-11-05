@@ -156,7 +156,7 @@ export function Roadmap() {
       </section>
 
       <div className="stack-10" style={{ paddingTop: 16 }}>
-        <Button variant="primary" icon="calendar" onClick={() => nav(R.myDay)} className="btn-r14">
+        <Button variant="primary" icon="calendar" className="btn-r14">
           Export to Calendar
         </Button>
         <Button variant="soft" icon="refresh" onClick={() => nav(R.coach)} className="btn-r14">

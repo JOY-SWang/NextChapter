@@ -1,7 +1,7 @@
 /** Route map — one entry per Figma frame on "Page 4 Job Transition". */
 export const R = {
-  welcome: '/', //                P1 - Welcome Page
-  home: '/home', //              Home tab (placeholder — content to come)
+  home: '/', //                   Home tab — default landing page (placeholder, content to come)
+  welcome: '/welcome', //         P1 - Welcome Page (first-time entry; also where Sign out lands)
   coachGuide: '/coach/start', //  P2 - AI Coach Guiding (first-time flow, no tab bar)
   coach: '/coach', //             P2.2 - AI Coach
   strengths: '/strengths', //     P3 - User Strength
@@ -10,7 +10,7 @@ export const R = {
   discover: '/discover', //       P4.2 - Explore Your Next Steps (Explore tab)
   roadmap: '/roadmap', //         P6 - My Plan tab ("My 100-Day Roadmap")
   community: '/community', //     P7 - Community
-  myDay: '/community/my-day', //  P7.2 - My Day
+  myDay: '/community/my-day', //  P7.2 - My Day (hidden: no route, nothing links here)
   me: '/me', //                   User Page
   messages: '/messages', //       P8 - Messages
   joyySettings: '/joyy', //       Joyy Settings
@@ -37,7 +37,6 @@ export const SCREEN_MAP: { group: string; items: { label: string; to: string; fi
       { label: 'Discover · next steps', to: R.discover, figma: 'P4.2' },
       { label: 'Roadmap · 100-Day Roadmap', to: R.roadmap, figma: 'P6 - Roadmap' },
       { label: 'Community', to: R.community, figma: 'P7 - Community' },
-      { label: 'My Day', to: R.myDay, figma: 'P7.2 - My Day' },
       { label: 'Messages', to: R.messages, figma: 'P8 - Messages' },
       { label: 'Me · strengths profile', to: R.me, figma: 'User Page' },
       { label: 'Joyy settings', to: R.joyySettings, figma: 'Joyy Settings' },

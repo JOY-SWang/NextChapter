@@ -40,7 +40,7 @@ const THREADS: Thread[] = [
     meta: ['coffee', 'Today · 7:00 PM · 5 going'],
     avatar: { icon: 'coffee', tone: 'amber' },
     kind: 'Circles',
-    to: R.myDay,
+    to: R.community,
   },
   {
     name: 'Later-Life Tech to Wellness',
@@ -63,7 +63,7 @@ const THREADS: Thread[] = [
     meta: ['calendar', 'Appointment update'],
     avatar: { icon: 'user', tone: 'green' },
     kind: 'Guides',
-    to: R.myDay,
+    to: R.community,
   },
 ];
 
