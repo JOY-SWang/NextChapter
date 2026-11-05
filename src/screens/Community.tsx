@@ -6,7 +6,10 @@ import { Button, Overline, Pill } from '../components/ui';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-/** Peer Circles / My Day segmented switch shared by P7 and P7.2. */
+/**
+ * Peer Circles / My Day segmented switch. No longer shown: My Day (P7.2) is hidden, so Community
+ * only shows the Peer Circles content. Kept because the hidden MyDay screen still imports it.
+ */
 export function CommunityTabs({ active }: { active: 'circles' | 'day' }) {
   const nav = useNavigate();
   return (
@@ -28,7 +31,6 @@ export function Community() {
   return (
     <Screen tab="community" label="Community">
       <h1 className="t-h1">Support &amp; Connections</h1>
-      <CommunityTabs active="circles" />
       <p className="t-body-lg muted">You don't have to navigate your transition alone.</p>
 
       <section className="card card-card stack-16">

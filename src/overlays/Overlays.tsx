@@ -253,7 +253,7 @@ function PlanReady() {
             <Icon name="route" size={22} color="var(--tertiary-key)" /> Your 100-day plan is ready
           </li>
         </ul>
-        <Button pill size="lg" trailing="arrow-right" onClick={() => (closeOverlay(), nav(R.roadmap))}>
+        <Button pill size="lg" trailing="arrow-right" onClick={() => (closeOverlay(), nav(R.home))}>
           Let’s Begin My Journey
         </Button>
         <p className="t-caption outline">Your pace. Your path. Your next chapter.</p>
@@ -296,7 +296,6 @@ const SHEETS = {
 function AddToMyDay({ id }: { id: keyof typeof SHEETS }) {
   const s = SHEETS[id];
   const { closeOverlay, addToMyDay } = useApp();
-  const nav = useNavigate();
   return (
     <OverlayFrame kind="sheet" label={s.title}>
       <span className="grabber" />
@@ -317,7 +316,7 @@ function AddToMyDay({ id }: { id: keyof typeof SHEETS }) {
         </div>
       </div>
       <p className="t-body-md muted center">{s.question}</p>
-      <Button pill size="lg" icon="calendar" onClick={() => (addToMyDay(id), closeOverlay(), nav(R.myDay))}>
+      <Button pill size="lg" icon="calendar" onClick={() => (addToMyDay(id), closeOverlay())}>
         Add to My Day
       </Button>
       <button type="button" className="unstyled text-link no-underline" onClick={closeOverlay}>

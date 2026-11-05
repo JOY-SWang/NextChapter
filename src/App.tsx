@@ -4,6 +4,7 @@ import { AppProvider, useApp, type OverlayId } from './context/AppContext';
 import { OverlayHost } from './overlays/Overlays';
 import { R, SCREEN_MAP } from './routes';
 import { Welcome } from './screens/Welcome';
+import { Home } from './screens/Home';
 import { Coach } from './screens/Coach';
 import { Strengths } from './screens/Strengths';
 import { Possibilities } from './screens/Possibilities';
@@ -11,7 +12,6 @@ import { Fit } from './screens/Fit';
 import { Discover } from './screens/Discover';
 import { Roadmap } from './screens/Roadmap';
 import { Community } from './screens/Community';
-import { MyDay } from './screens/MyDay';
 import { Me } from './screens/Me';
 import { Messages } from './screens/Messages';
 import { JoyySettings } from './screens/JoyySettings';
@@ -21,9 +21,9 @@ const OVERLAY_LINKS: { label: string; id: OverlayId }[] = [
   { label: 'Meet Joyy', id: 'meetJoyy' },
   { label: 'Joyy profile', id: 'joyyProfile' },
   { label: 'Plan ready', id: 'planReady' },
-  { label: 'RSVP → Add to My Day', id: 'rsvp' },
-  { label: 'Chat booked → Add to My Day', id: 'chatBooked' },
-  { label: 'Trial class → Add to My Day', id: 'trialClass' },
+  { label: 'RSVP confirmed', id: 'rsvp' },
+  { label: 'Chat booked', id: 'chatBooked' },
+  { label: 'Trial class booked', id: 'trialClass' },
 ];
 
 /** Side panel shown on wide screens: jump to any Figma frame or overlay. */
@@ -80,6 +80,7 @@ function Device() {
     <div className={`device ${settings.highContrast ? 'hc' : ''}`}>
       <span className="device-island" aria-hidden />
       <Routes>
+        <Route path={R.home} element={<Home />} />
         <Route path={R.welcome} element={<Welcome />} />
         <Route path={R.coachGuide} element={<Coach key="guided" guiding />} />
         <Route path={R.coach} element={<Coach key="everyday" />} />
@@ -89,11 +90,10 @@ function Device() {
         <Route path={R.discover} element={<Discover />} />
         <Route path={R.roadmap} element={<Roadmap />} />
         <Route path={R.community} element={<Community />} />
-        <Route path={R.myDay} element={<MyDay />} />
         <Route path={R.me} element={<Me />} />
         <Route path={R.messages} element={<Messages />} />
         <Route path={R.joyySettings} element={<JoyySettings />} />
-        <Route path="*" element={<Welcome />} />
+        <Route path="*" element={<Home />} />
       </Routes>
       <OverlayHost />
     </div>
