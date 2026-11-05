@@ -28,6 +28,38 @@ export const STRENGTH_META: Record<StrengthKey, { label: string; icon: string; t
   problemSolving: { label: 'Problem-solving', icon: 'lightbulb', title: 'Problem-solving', sub: 'Untangling complex situations' },
 };
 
+/**
+ * Evidence behind each strength (what JoyAI heard in the AI Coach chat) and how it shows up.
+ * Shared by the P3 strength details and the User page "Strengths & evidence" cards.
+ * Sarah is a sample persona — this is illustrative content, not real user data.
+ */
+export const STRENGTH_EVIDENCE: Record<StrengthKey, { evidence: string; tags: string[] }> = {
+  mentoring: {
+    evidence: '“Mentored 35+ tech managers through organizational volatility; certified internal coaching facilitator for mid-tier transitions.”',
+    tags: ['1-on-1 Dialogue', 'Empathetic Listening', 'Psychological Safety'],
+  },
+  planning: {
+    evidence: '“20 years orchestrating multi-million budgets, complex program rollouts, and calming stakeholder anxiety during critical go-lives.”',
+    tags: ['Budget Stewardship', 'Milestone Roadmapping', 'Boundary Setting'],
+  },
+  communication: {
+    evidence: '“Experienced keynote presenter, interactive workshop host for cross-functional leaders, and creator of quiet consensus.”',
+    tags: ['Story Crafting', 'Conflict De-escalation'],
+  },
+  wellness: {
+    evidence: '“8 years of personal yoga practice; now learning anatomy basics and breathwork.”',
+    tags: ['Mindful Breath', 'Yoga Asana', 'Basic Yoga Anatomy'],
+  },
+  adaptability: {
+    evidence: '“Kept teams steady through three reorganisations and a platform migration, adjusting plans without losing momentum.”',
+    tags: ['Calm Through Change', 'Re-planning', 'Learning Fast'],
+  },
+  problemSolving: {
+    evidence: '“Often the one asked to untangle stuck projects — breaking big unknowns into small, testable next steps.”',
+    tags: ['Breaking Down Problems', 'Root-cause Thinking', 'Trade-off Calls'],
+  },
+};
+
 /** JoyAI's assessment from the AI Coach conversation (the starting point the user can edit). */
 export const JOYAI_STRENGTHS: StrengthValues = { planning: 95, communication: 88, mentoring: 92, adaptability: 80, wellness: 72, problemSolving: 86 };
 
