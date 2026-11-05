@@ -294,7 +294,7 @@ const STROKE: Record<string, ReactNode> = {
       <path d="M10.7 10.7 13.3 13.3 8.4 15.6z" fill="currentColor" stroke="none" />
     </>
   ),
-  'nav-joyy': (
+  'nav-joyai': (
     <>
       <path d="M12 9.4V6.8" />
       <path d="M12 7.4C10.6 5 8 4.1 5.4 4.9c1 2.4 3.8 3.4 6.6 2.5z" fill="currentColor" fillOpacity="0.55" />

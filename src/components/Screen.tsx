@@ -4,7 +4,7 @@ import { JourneyCompact, JourneySteps, useJourneyCollapse, type JourneyStep } fr
 import { useApp } from '../context/AppContext';
 
 interface Props {
-  /** Top bar state, or 'status' for screens that only show the iPhone status bar (P1, Joyy Settings). */
+  /** Top bar state, or 'status' for screens that only show the iPhone status bar (P1, JoyAI Settings). */
   top?: TopBarState | 'status';
   /** Active tab — omit for first-time-journey screens that have no tab bar. */
   tab?: Tab;

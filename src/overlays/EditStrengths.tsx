@@ -6,7 +6,7 @@ import { RadarChart } from '../components/RadarChart';
 import { Button } from '../components/ui';
 import {
   BALANCE_ORDER,
-  JOYY_STRENGTHS,
+  JOYAI_STRENGTHS,
   STRENGTH_META,
   sameStrengths,
   strengthLevel,
@@ -18,9 +18,9 @@ import {
 const clamp = (v: number) => Math.max(0, Math.min(100, Math.round(v)));
 
 /** One strength: name, level word, value, and a slider with −/+ buttons for precise, large-target changes. */
-function StrengthRow({ k, value, joyy, onChange }: { k: StrengthKey; value: number; joyy: number; onChange: (v: number) => void }) {
+function StrengthRow({ k, value, joyai, onChange }: { k: StrengthKey; value: number; joyai: number; onChange: (v: number) => void }) {
   const meta = STRENGTH_META[k];
-  const changed = value !== joyy;
+  const changed = value !== joyai;
   return (
     <li className={`edit-row ${changed ? 'is-changed' : ''}`}>
       <div className="edit-row-head">
@@ -31,8 +31,8 @@ function StrengthRow({ k, value, joyy, onChange }: { k: StrengthKey; value: numb
           <strong className="t-label-lg">{meta.label}</strong>
           <span className="t-tiny muted">{strengthLevel(value)}</span>
           {changed && (
-            <button type="button" className="unstyled edit-revert" onClick={() => onChange(joyy)}>
-              Joyy suggested {joyy}% · Undo
+            <button type="button" className="unstyled edit-revert" onClick={() => onChange(joyai)}>
+              JoyAI suggested {joyai}% · Undo
             </button>
           )}
         </span>
@@ -54,7 +54,7 @@ function StrengthRow({ k, value, joyy, onChange }: { k: StrengthKey; value: numb
           aria-label={`${meta.label} level`}
           aria-valuetext={`${value}%, ${strengthLevel(value)}`}
           className="edit-slider"
-          style={{ '--v': `${value}%`, '--j': `${joyy}%` } as CSSProperties}
+          style={{ '--v': `${value}%`, '--j': `${joyai}%` } as CSSProperties}
         />
         <button type="button" className="step-btn" aria-label={`Raise ${meta.label}`} disabled={value >= 100} onClick={() => onChange(clamp(value + 5))}>
           <Icon name="plus" size={18} stroke={2.2} />
@@ -66,14 +66,14 @@ function StrengthRow({ k, value, joyy, onChange }: { k: StrengthKey; value: numb
 
 /**
  * Edit strengths (from the User page "Strengths balance · Edit").
- * Sarah adjusts the levels Joyy suggested; the preview compares her version with Joyy's.
+ * Sarah adjusts the levels JoyAI suggested; the preview compares her version with JoyAI's.
  * Save updates her profile everywhere (User page, P3 strengths map); Cancel discards.
  */
 export function EditStrengths() {
   const { strengths, saveStrengths, closeOverlay } = useApp();
   const [draft, setDraft] = useState<StrengthValues>(strengths);
   const dirty = !sameStrengths(draft, strengths);
-  const isJoyy = sameStrengths(draft, JOYY_STRENGTHS);
+  const isJoyAI = sameStrengths(draft, JOYAI_STRENGTHS);
   const set = (k: StrengthKey) => (v: number) => setDraft((d) => ({ ...d, [k]: v }));
 
   const save = () => {
@@ -88,7 +88,7 @@ export function EditStrengths() {
         <header className="edit-head">
           <div className="stack-4 grow">
             <h2 className="t-h2">Edit your strengths</h2>
-            <p className="t-body muted">Joyy suggested these levels from your conversation. Move any that don’t feel right — Joyy will use your version from now on.</p>
+            <p className="t-body muted">JoyAI suggested these levels from your conversation. Move any that don’t feel right — JoyAI will use your version from now on.</p>
           </div>
           <button type="button" className="icon-btn icon-btn-soft" aria-label="Close without saving" onClick={closeOverlay}>
             <Icon name="close" size={20} stroke={2} />
@@ -96,20 +96,20 @@ export function EditStrengths() {
         </header>
 
         <section className="edit-preview" aria-label="Preview">
-          <RadarChart axes={toAxes(BALANCE_ORDER, draft, JOYY_STRENGTHS)} radius={72} mode="edit" ariaLabel="Preview of your edited strengths compared with Joyy’s assessment" />
+          <RadarChart axes={toAxes(BALANCE_ORDER, draft, JOYAI_STRENGTHS)} radius={72} mode="edit" ariaLabel="Preview of your edited strengths compared with JoyAI’s assessment" />
           <div className="legend legend-center">
             <span>
               <i style={{ background: 'var(--primary-key)' }} /> Your levels
             </span>
             <span>
-              <i className="legend-dashed" /> Joyy’s assessment
+              <i className="legend-dashed" /> JoyAI’s assessment
             </span>
           </div>
         </section>
 
         <ul className="edit-list">
           {BALANCE_ORDER.map((k) => (
-            <StrengthRow key={k} k={k} value={draft[k]} joyy={JOYY_STRENGTHS[k]} onChange={set(k)} />
+            <StrengthRow key={k} k={k} value={draft[k]} joyai={JOYAI_STRENGTHS[k]} onChange={set(k)} />
           ))}
         </ul>
       </div>
@@ -122,8 +122,8 @@ export function EditStrengths() {
           <Button variant="soft" size="sm" onClick={closeOverlay}>
             Cancel
           </Button>
-          <Button variant="ghost" size="sm" icon="refresh" disabled={isJoyy} onClick={() => setDraft(JOYY_STRENGTHS)}>
-            Reset to Joyy’s
+          <Button variant="ghost" size="sm" icon="refresh" disabled={isJoyAI} onClick={() => setDraft(JOYAI_STRENGTHS)}>
+            Reset to JoyAI’s
           </Button>
         </div>
       </footer>

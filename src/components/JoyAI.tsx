@@ -1,20 +1,20 @@
 import { useId } from 'react';
 
-export type JoyyMood = 'smile' | 'wink' | 'heart';
+export type JoyAIMood = 'smile' | 'wink' | 'heart';
 
 /**
- * Joyy — the Next Chapter AI Coach mascot (vector, mirrors Figma "NC / Joyy").
+ * JoyAI — the Next Chapter AI Coach mascot (vector, mirrors Figma "NC / JoyAI").
  * `animated` splits the drawing into parts (body, right leaf, eyes, shadow) that the
  * welcome animation can move; the resting pose is identical to the static one.
  */
-export function Joyy({ mood = 'smile', size = 120, className, animated = false }: { mood?: JoyyMood; size?: number; className?: string; animated?: boolean }) {
+export function JoyAI({ mood = 'smile', size = 120, className, animated = false }: { mood?: JoyAIMood; size?: number; className?: string; animated?: boolean }) {
   const id = useId().replace(/:/g, '');
   const body = `jb-${id}`;
   const leaf = `jl-${id}`;
   const ink = '#1E382B';
   const a = (cls: string) => (animated ? cls : undefined);
   return (
-    <svg width={size} height={size} viewBox="0 0 120 120" className={`${className ?? ''} ${animated ? 'joyy-animated' : ''}`} role="img" aria-label="Joyy, your AI coach">
+    <svg width={size} height={size} viewBox="0 0 120 120" className={`${className ?? ''} ${animated ? 'joyai-animated' : ''}`} role="img" aria-label="JoyAI, your AI coach">
       <defs>
         <linearGradient id={body} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#D6F0DF" />
@@ -25,34 +25,34 @@ export function Joyy({ mood = 'smile', size = 120, className, animated = false }
           <stop offset="1" stopColor="#4E9A68" />
         </linearGradient>
       </defs>
-      <ellipse className={a('joyy-shadow')} cx="60" cy="109" rx="34" ry="5" fill={ink} fillOpacity="0.12" />
-      <g className={a('joyy-figure')}>
+      <ellipse className={a('joyai-shadow')} cx="60" cy="109" rx="34" ry="5" fill={ink} fillOpacity="0.12" />
+      <g className={a('joyai-figure')}>
         <path d="M60 42C60 34 61 28 64 22" stroke="#3D7A52" strokeWidth="3.2" strokeLinecap="round" fill="none" />
         <path d="M61 31C52 18 38 15 28 21C34 33 49 37 61 31Z" fill={`url(#${leaf})`} />
         <path d="M58 30C50 25 42 22 34 22" stroke="#C9EBD2" strokeOpacity="0.8" strokeWidth="1.6" strokeLinecap="round" fill="none" />
-        <g className={a('joyy-leaf-right')}>
+        <g className={a('joyai-leaf-right')}>
           <path d="M63 26C68 11 82 5 96 9C92 24 77 31 63 26Z" fill={`url(#${leaf})`} />
           <path d="M66 25C73 18 81 13 90 11" stroke="#C9EBD2" strokeOpacity="0.8" strokeWidth="1.6" strokeLinecap="round" fill="none" />
         </g>
-        <g className={a('joyy-breathe')}>
+        <g className={a('joyai-breathe')}>
           <path d="M60 40C86 40 101 58 101 79C101 99 85 107 60 107C35 107 19 99 19 79C19 58 34 40 60 40Z" fill={`url(#${body})`} />
           <path d="M38 56C44 49 51 46 58 45" stroke="#fff" strokeOpacity="0.55" strokeWidth="4" strokeLinecap="round" fill="none" />
           <ellipse cx="38" cy="85" rx="6" ry="3.6" fill="#E8998B" fillOpacity="0.7" />
           <ellipse cx="82" cy="85" rx="6" ry="3.6" fill="#E8998B" fillOpacity="0.7" />
           {mood === 'wink' ? (
             <>
-              <g className={a('joyy-eye-left')}>
+              <g className={a('joyai-eye-left')}>
                 <ellipse cx="47" cy="73" rx="4" ry="5" fill={ink} />
                 <circle cx="48.4" cy="71.2" r="1.3" fill="#fff" />
               </g>
               {animated && (
                 // Right eye starts open, then closes into the wink.
-                <g className="joyy-eye-right-open">
+                <g className="joyai-eye-right-open">
                   <ellipse cx="73.5" cy="73" rx="4" ry="5" fill={ink} />
                   <circle cx="74.9" cy="71.2" r="1.3" fill="#fff" />
                 </g>
               )}
-              <path className={a('joyy-eye-wink')} d="M68 74Q73.5 69 79 74" stroke={ink} strokeWidth="3.2" strokeLinecap="round" fill="none" />
+              <path className={a('joyai-eye-wink')} d="M68 74Q73.5 69 79 74" stroke={ink} strokeWidth="3.2" strokeLinecap="round" fill="none" />
             </>
           ) : (
             <>
@@ -79,10 +79,10 @@ export function Joyy({ mood = 'smile', size = 120, className, animated = false }
 }
 
 /** Circular avatar version used in chat bubbles, notes and the drawer. */
-export function JoyyAvatar({ size = 40, onClick, label = 'Open Joyy’s profile' }: { size?: number; onClick?: () => void; label?: string }) {
+export function JoyAIAvatar({ size = 40, onClick, label = 'Open JoyAI’s profile' }: { size?: number; onClick?: () => void; label?: string }) {
   const inner = (
-    <span className="joyy-avatar" style={{ width: size, height: size }}>
-      <Joyy size={size * 0.9} />
+    <span className="joyai-avatar" style={{ width: size, height: size }}>
+      <JoyAI size={size * 0.9} />
     </span>
   );
   if (!onClick) return inner;
@@ -93,7 +93,7 @@ export function JoyyAvatar({ size = 40, onClick, label = 'Open Joyy’s profile'
   );
 }
 
-/** Four-point sparkle used around Joyy illustrations. */
+/** Four-point sparkle used around JoyAI illustrations. */
 export function Sparkle({ size = 12, color = 'var(--secondary-key)', style }: { size?: number; color?: string; style?: React.CSSProperties }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={style} aria-hidden>

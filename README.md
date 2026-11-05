@@ -6,7 +6,7 @@ A runnable React + TypeScript + Vite recreation of the **Next Chapter** mobile a
 Next Chapter is an AI-powered career-transition companion for experienced people who have lost
 their professional direction (laid off, retiring, ready for a change). The prototype follows
 **Sarah, 48** — 20 years leading projects and teams in tech — as she rediscovers her strengths
-with **Joyy**, the AI coach, chooses to explore yoga teaching, and turns it into a 100-day plan.
+with **JoyAI**, the AI coach, chooses to explore yoga teaching, and turns it into a 100-day plan.
 
 ## Run it
 
@@ -48,30 +48,30 @@ content is enough). The script maps each slot to its Figma node in `scripts/fetc
 
 | Route | Figma frame | Notes |
 | --- | --- | --- |
-| `/welcome` | P1 - Welcome Page | “Discover My Next Chapter” opens **Meet Joyy** |
+| `/welcome` | P1 - Welcome Page | “Discover My Next Chapter” opens **Meet JoyAI** |
 | `/coach/start` | P2 - AI Coach Guiding | First-time chat, journey step 1, no tab bar |
 | `/strengths` | P3 - User Strength | Journey step 2 |
 | `/possibilities` | P4 | Journey step 3 — reached only from P3 and “Revisit My Possibilities” |
 | `/fit` | P5 | “Build My 100-Day Yoga Plan” opens **Plan ready** |
-| `/` | Home | **Home** tab — default landing page; placeholder, content to come |
+| `/` | P0 - Home | **Home** tab — default landing page (also where *Plan ready → Let’s Begin My Journey* lands). Greeting, JoyAI’s proactive check-in (**Let’s talk** → AI Coach, JoyAI → profile, **Not now** folds it away), journey card → Roadmap, strengths-vs-role radar → P5, and My Schedule (event cards → Discover / Community) |
 | `/coach` | P2.2 - AI Coach | AI Coach tab |
 | `/discover` | P4.2 - Explore Your Next Steps | **Discover** tab once a path is chosen |
 | `/roadmap` | P6 - Roadmap | **Roadmap** tab — “My 100-Day Roadmap”: long-term goal → milestones → next action |
 | `/community` | P7 - Community | Peer circles, human guide, RSVP |
-| ~~`/community/my-day`~~ | P7.2 - My Day | Hidden — not routed and nothing links here (`src/screens/MyDay.tsx` kept) |
+| ~~`/community/my-day`~~ | P7.2 - My Day | Hidden — not routed and nothing links here (`src/screens/MyDay.tsx` kept; its schedule now lives on Home) |
 | `/me` | User Page | Avatar in the top bar |
 | `/messages` | P8 - Messages | 💬 in the top bar |
-| `/joyy` | Joyy Settings | From the ≡ drawer or Joyy’s profile |
+| `/joyai` | JoyAI Settings | From the ≡ drawer or JoyAI’s profile |
 
-Overlays: settings drawer (≡ — text size, bold text and high contrast actually work), Meet Joyy,
-Joyy profile, Plan ready, and three *Add to My Day* sheets (gathering RSVP, guide chat, trial class).
+Overlays: settings drawer (≡ — text size, bold text and high contrast actually work), Meet JoyAI,
+JoyAI profile, Plan ready, and three *Add to My Day* sheets (gathering RSVP, guide chat, trial class).
 
 ## Design system
 
 - **Colour** — tokens mirror the Figma variable collection *Next Chapter · Color*
   (`src/styles/tokens.css`): Primary `#1E382B`, Secondary `#D9933B`, Tertiary `#995A4E`, Neutral `#232623`.
 - **Type** — Newsreader for headlines, Atkinson Hyperlegible Next for body and labels (bundled via Fontsource).
-- **Components** — top bar, bottom nav, journey steps, Joyy mascot/avatar, radar chart, pills, toggles and
+- **Components** — top bar, bottom nav, journey steps, JoyAI mascot/avatar, radar chart, pills, toggles and
   cards in `src/components/`.
 
 ## Project structure
@@ -81,7 +81,7 @@ src/
   App.tsx              router, device frame, prototype map
   routes.ts            route ↔ Figma frame map
   context/             overlay + display-settings state
-  components/          shared UI (Chrome, Screen, Joyy, RadarChart, Icon, ui…)
+  components/          shared UI (Chrome, Screen, JoyAI, RadarChart, Icon, ui…)
   overlays/            drawer, modals and bottom sheets
   screens/             one file per Figma frame
   data/content.ts      shared copy and chart data from Figma

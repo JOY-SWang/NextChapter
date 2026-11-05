@@ -20,7 +20,7 @@ export function Welcome() {
       </div>
       <div className="grow" />
       <div className="welcome-cta">
-        <Button pill size="lg" trailing="arrow-right" className="btn-shadow" onClick={() => openOverlay('meetJoyy')}>
+        <Button pill size="lg" trailing="arrow-right" className="btn-shadow" onClick={() => openOverlay('meetJoyAI')}>
           Discover My Next Chapter
         </Button>
         <p className="t-caption outline center">Your experience matters. Your next step is yours.</p>

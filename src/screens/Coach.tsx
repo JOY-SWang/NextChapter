@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
 import { useRipple } from '../components/Motion';
-import { JoyyAvatar } from '../components/Joyy';
+import { JoyAIAvatar } from '../components/JoyAI';
 import { Photo } from '../components/Photo';
 import { Button, Pill } from '../components/ui';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-function JoyyTurn({ children }: { children: React.ReactNode }) {
+function JoyAITurn({ children }: { children: React.ReactNode }) {
   const { openOverlay } = useApp();
   return (
-    <div className="turn turn-joyy">
-      <JoyyAvatar size={34} onClick={() => openOverlay('joyyProfile')} />
+    <div className="turn turn-joyai">
+      <JoyAIAvatar size={34} onClick={() => openOverlay('joyaiProfile')} />
       <div className="turn-body">
-        <span className="turn-name">Joyy</span>
-        <div className="bubble bubble-joyy">{children}</div>
+        <span className="turn-name">JoyAI</span>
+        <div className="bubble bubble-joyai">{children}</div>
       </div>
     </div>
   );
@@ -81,17 +81,17 @@ function StrengthsSoFar({ defaultOpen = true }: { defaultOpen?: boolean }) {
   );
 }
 
-/** Joyy's "thinking" bubble: sparkle + label + three looping dots. */
+/** JoyAI's "thinking" bubble: sparkle + label + three looping dots. */
 function ThinkingTurn() {
   const { openOverlay } = useApp();
   return (
-    <div className="turn turn-joyy turn-enter" role="status" aria-label="Joyy is thinking">
-      <JoyyAvatar size={34} onClick={() => openOverlay('joyyProfile')} />
+    <div className="turn turn-joyai turn-enter" role="status" aria-label="JoyAI is thinking">
+      <JoyAIAvatar size={34} onClick={() => openOverlay('joyaiProfile')} />
       <div className="turn-body">
-        <span className="turn-name">Joyy</span>
-        <div className="bubble bubble-joyy bubble-thinking">
+        <span className="turn-name">JoyAI</span>
+        <div className="bubble bubble-joyai bubble-thinking">
           <Icon name="sparkle" size={18} color="var(--primary-key)" className="thinking-spark" />
-          <span>Joyy is thinking</span>
+          <span>JoyAI is thinking</span>
           <span className="thinking-dots" aria-hidden>
             <i />
             <i />
@@ -103,10 +103,10 @@ function ThinkingTurn() {
   );
 }
 
-type ChatMsg = { id: number; from: 'sarah' | 'joyy'; text: string };
+type ChatMsg = { id: number; from: 'sarah' | 'joyai'; text: string };
 
 /**
- * Simulated replies — Joyy picks relevant knowledge and resources for Sarah's goals;
+ * Simulated replies — JoyAI picks relevant knowledge and resources for Sarah's goals;
  * it does not claim to have learned a new profession.
  */
 function simulatedReply(text: string) {
@@ -126,8 +126,8 @@ function simulatedReply(text: string) {
 
 /**
  * Chat UI interaction + simulated AI thinking:
- * send → Sarah's bubble appears → after 100 ms Joyy's thinking bubble (looping dots)
- * → after a short "thinking" pause it is replaced by Joyy's reply.
+ * send → Sarah's bubble appears → after 100 ms JoyAI's thinking bubble (looping dots)
+ * → after a short "thinking" pause it is replaced by JoyAI's reply.
  */
 function useSimulatedChat() {
   const [messages, setMessages] = useState<ChatMsg[]>([]);
@@ -153,7 +153,7 @@ function useSimulatedChat() {
     const thinkFor = 1500 + Math.min(1200, text.length * 18);
     later(() => {
       setThinking(false);
-      setMessages((m) => [...m, { id: nextId.current++, from: 'joyy', text: simulatedReply(text) }]);
+      setMessages((m) => [...m, { id: nextId.current++, from: 'joyai', text: simulatedReply(text) }]);
       setBusy(false);
     }, 100 + thinkFor);
     return true;
@@ -184,7 +184,7 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
       <button type="button" className="icon-btn" aria-label="Voice input">
         <Icon name="mic" size={22} color="var(--on-surface-variant)" />
       </button>
-      <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Share anything..." aria-label="Message Joyy" />
+      <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Share anything..." aria-label="Message JoyAI" />
       <button type="submit" className="send-btn ripple-host" aria-label="Send message" disabled={!draft.trim() || chat.busy} {...sendRipple.handlers}>
         {sendRipple.layer}
         <Icon name="send" size={20} color="var(--primary-on)" />
@@ -199,29 +199,29 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
       <StrengthsSoFar defaultOpen={guiding} />
 
       <div className="feed">
-        <JoyyTurn>
+        <JoyAITurn>
           Sarah, after two decades leading technical delivery, you’re very good at bringing order to chaos. When you picture your ideal week now, what
           feeling do you most want to protect?
-        </JoyyTurn>
+        </JoyAITurn>
         <SarahTurn>
           I definitely don’t want high-stress deadlines or 50-hour sprints anymore. I genuinely love 1-on-1 mentorship, and I’ve practiced yoga for 8
           years. I want space to breathe.
         </SarahTurn>
-        <JoyyTurn>
+        <JoyAITurn>
           Eight years of practice is a real foundation. And wanting meaningful 1-on-1 connection without the operational pressure is an important
           boundary. If we start with about 8 hours a week, would that feel restorative rather than draining?
-        </JoyyTurn>
+        </JoyAITurn>
 
-        <button type="button" className="unstyled adapt-note" onClick={() => openOverlay('joyyProfile')}>
+        <button type="button" className="unstyled adapt-note" onClick={() => openOverlay('joyaiProfile')}>
           <span className="row gap-8">
-            <JoyyAvatar size={20} />
-            <strong>Joyy is adapting to you</strong>
+            <JoyAIAvatar size={20} />
+            <strong>JoyAI is adapting to you</strong>
           </span>
           <span className="wrap gap-6">
             <span className="adapt-chip">+ Yoga practice</span>
             <span className="adapt-chip">+ Wellness interests</span>
           </span>
-          <span className="t-tiny muted">Added to your personalization profile. Tap Joyy’s avatar to review.</span>
+          <span className="t-tiny muted">Added to your personalization profile. Tap JoyAI’s avatar to review.</span>
         </button>
 
         <SarahTurn>Yes, exactly. 8 hours feels sustainable. It leaves room for my own yoga practice and family dinners.</SarahTurn>
@@ -255,9 +255,9 @@ export function Coach({ guiding = false }: { guiding?: boolean }) {
             m.from === 'sarah' ? (
               <SarahTurn key={m.id}>{m.text}</SarahTurn>
             ) : (
-              <JoyyTurn key={m.id}>
+              <JoyAITurn key={m.id}>
                 <span className="bubble-in">{m.text}</span>
-              </JoyyTurn>
+              </JoyAITurn>
             ),
           )}
           {chat.thinking && <ThinkingTurn />}

@@ -14,12 +14,12 @@ import { Roadmap } from './screens/Roadmap';
 import { Community } from './screens/Community';
 import { Me } from './screens/Me';
 import { Messages } from './screens/Messages';
-import { JoyySettings } from './screens/JoyySettings';
+import { JoyAISettings } from './screens/JoyAISettings';
 
 const OVERLAY_LINKS: { label: string; id: OverlayId }[] = [
   { label: 'Settings drawer (≡)', id: 'drawer' },
-  { label: 'Meet Joyy', id: 'meetJoyy' },
-  { label: 'Joyy profile', id: 'joyyProfile' },
+  { label: 'Meet JoyAI', id: 'meetJoyAI' },
+  { label: 'JoyAI profile', id: 'joyaiProfile' },
   { label: 'Plan ready', id: 'planReady' },
   { label: 'RSVP confirmed', id: 'rsvp' },
   { label: 'Chat booked', id: 'chatBooked' },
@@ -92,7 +92,7 @@ function Device() {
         <Route path={R.community} element={<Community />} />
         <Route path={R.me} element={<Me />} />
         <Route path={R.messages} element={<Messages />} />
-        <Route path={R.joyySettings} element={<JoyySettings />} />
+        <Route path={R.joyaiSettings} element={<JoyAISettings />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <OverlayHost />
