@@ -48,12 +48,12 @@ content is enough). The script maps each slot to its Figma node in `scripts/fetc
 
 | Route | Figma frame | Notes |
 | --- | --- | --- |
-| `/welcome` | P1 - Welcome Page | “Discover My Next Chapter” opens **Meet JoyAI** |
+| `/welcome` | P1 - Welcome Page | Every visit starts here — `/` and unknown routes redirect to it. “Discover My Next Chapter” opens **Meet JoyAI** |
 | `/coach/start` | P2 - AI Coach Guiding | First-time chat, journey step 1, no tab bar |
 | `/strengths` | P3 - User Strength | Journey step 2 |
 | `/possibilities` | P4 | Journey step 3 — reached only from P3 and “Revisit My Possibilities” |
 | `/fit` | P5 | “Build My 100-Day Yoga Plan” opens **Plan ready** |
-| `/` | P0 - Home | **Home** tab — default landing page (also where *Plan ready → Let’s Begin My Journey* lands). Greeting, journey card → Roadmap, strengths-vs-role radar → P5, My Schedule (event cards → Discover / Community), then JoyAI’s green check-in card at the bottom (**Let’s talk** → AI Coach, JoyAI → profile, **Not now** folds it away) |
+| `/home` | P0 - Home | **Home** tab (also where *Plan ready → Let’s Begin My Journey* lands). Greeting, journey card → Roadmap, strengths-vs-role radar → P5, My Schedule (event cards → Discover / Community), then JoyAI’s green check-in card at the bottom (**Let’s talk** → AI Coach, JoyAI → profile, **Not now** folds it away) |
 | `/coach` | P2.2 - AI Coach | AI Coach tab |
 | `/discover` | P4.2 - Explore Your Next Steps | **Discover** tab once a path is chosen |
 | `/roadmap` | P6 - Roadmap | **Roadmap** tab — “My 100-Day Roadmap”: long-term goal → milestones → next action |

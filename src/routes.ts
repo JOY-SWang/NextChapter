@@ -1,7 +1,7 @@
 /** Route map — one entry per Figma frame on "Page 4 Job Transition". */
 export const R = {
-  home: '/', //                   P0 - Home (Home tab, default landing page)
-  welcome: '/welcome', //         P1 - Welcome Page (first-time entry; also where Sign out lands)
+  welcome: '/welcome', //         P1 - Welcome Page — where every visit starts (`/` redirects here); also where Sign out lands
+  home: '/home', //               P0 - Home (Home tab; reached after the first-time journey)
   coachGuide: '/coach/start', //  P2 - AI Coach Guiding (first-time flow, no tab bar)
   coach: '/coach', //             P2.2 - AI Coach
   strengths: '/strengths', //     P3 - User Strength

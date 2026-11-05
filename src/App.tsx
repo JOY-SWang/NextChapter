@@ -1,4 +1,4 @@
-import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AppProvider, useApp, type OverlayId } from './context/AppContext';
 import { OverlayHost } from './overlays/Overlays';
@@ -80,8 +80,10 @@ function Device() {
     <div className={`device ${settings.highContrast ? 'hc' : ''}`}>
       <span className="device-island" aria-hidden />
       <Routes>
-        <Route path={R.home} element={<Home />} />
+        {/* Opening the site (no hash) always starts at P1 - Welcome. */}
+        <Route path="/" element={<Navigate to={R.welcome} replace />} />
         <Route path={R.welcome} element={<Welcome />} />
+        <Route path={R.home} element={<Home />} />
         <Route path={R.coachGuide} element={<Coach key="guided" guiding />} />
         <Route path={R.coach} element={<Coach key="everyday" />} />
         <Route path={R.strengths} element={<Strengths />} />
@@ -93,7 +95,7 @@ function Device() {
         <Route path={R.me} element={<Me />} />
         <Route path={R.messages} element={<Messages />} />
         <Route path={R.joyaiSettings} element={<JoyAISettings />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Navigate to={R.welcome} replace />} />
       </Routes>
       <OverlayHost />
     </div>
