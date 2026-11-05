@@ -12,7 +12,7 @@ import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
 /**
- * JoyAI's proactive check-in — the first card on Home so JoyAI is hard to miss.
+ * JoyAI's proactive check-in — the green card at the bottom of Home, after My Schedule.
  * JoyAI opens the conversation based on Sarah's progress; "Let's talk" goes to the AI Coach,
  * "Not now" folds it into a quiet one-line reminder (low-pressure, reversible).
  */
@@ -54,7 +54,7 @@ function JoyAICheckin() {
   );
 }
 
-/** P0 - Home: greeting, JoyAI check-in, journey + fit radar, and this week's schedule. */
+/** P0 - Home: greeting, journey + fit radar, this week's schedule, then JoyAI's check-in. */
 export function Home() {
   const nav = useNavigate();
   return (
@@ -64,11 +64,7 @@ export function Home() {
         <p className="t-body-lg muted">You’re making progress, Sarah. Let’s keep going!</p>
       </Reveal>
 
-      <Reveal delay={60}>
-        <JoyAICheckin />
-      </Reveal>
-
-      <Reveal className="stack-8" delay={120}>
+      <Reveal className="stack-8" delay={60}>
         <JourneyProgress onClick={() => nav(R.roadmap)} />
         <button
           type="button"
@@ -90,6 +86,10 @@ export function Home() {
       </Reveal>
 
       <WeekSchedule />
+
+      <Reveal>
+        <JoyAICheckin />
+      </Reveal>
     </Screen>
   );
 }
