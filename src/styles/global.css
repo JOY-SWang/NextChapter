@@ -2025,6 +2025,82 @@ button:disabled {
   border: 1px dashed var(--outline-variant);
 }
 
+/* ─────────────────────────── Home (P0) ─────────────────────────── */
+/* Joyy's proactive check-in: tinted card + speech bubble so it stands apart from white cards. */
+.joyy-checkin {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 10px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--primary-container) 45%, var(--surface-card));
+}
+.joyy-checkin-avatar {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.joyy-checkin-avatar svg {
+  display: block;
+}
+.joyy-bubble {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 4px 18px 18px 18px;
+  background: var(--surface-card);
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--on-surface);
+  animation: rise 0.35s ease 0.15s both;
+}
+.joyy-checkin-later {
+  align-self: center;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-muted);
+  cursor: pointer;
+}
+.joyy-checkin-mini {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--primary-container) 35%, var(--surface-card));
+}
+.journey-progress {
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.journey-progress.is-link,
+.home-radar {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.journey-progress.is-link:active,
+.home-radar:active {
+  transform: scale(0.99);
+}
+.home-radar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 18px;
+  padding: 12px 8px 8px;
+}
+.home-radar-head {
+  padding: 0 8px;
+  color: var(--on-surface-variant);
+}
+.home-radar-head .legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
 /* ─────────────────────────── Me page ─────────────────────────── */
 .mini-tabs {
   display: flex;

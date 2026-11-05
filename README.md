@@ -53,12 +53,12 @@ content is enough). The script maps each slot to its Figma node in `scripts/fetc
 | `/strengths` | P3 - User Strength | Journey step 2 |
 | `/possibilities` | P4 | Journey step 3 — reached only from P3 and “Revisit My Possibilities” |
 | `/fit` | P5 | “Build My 100-Day Yoga Plan” opens **Plan ready** |
-| `/` | Home | **Home** tab — default landing page; placeholder, content to come |
+| `/` | P0 - Home | **Home** tab — default landing page (also where *Plan ready → Let’s Begin My Journey* lands). Greeting, Joyy’s proactive check-in (**Let’s talk** → AI Coach, Joyy → profile, **Not now** folds it away), journey card → Roadmap, strengths-vs-role radar → P5, and My Schedule (event cards → Discover / Community) |
 | `/coach` | P2.2 - AI Coach | AI Coach tab |
 | `/discover` | P4.2 - Explore Your Next Steps | **Discover** tab once a path is chosen |
 | `/roadmap` | P6 - Roadmap | **Roadmap** tab — “My 100-Day Roadmap”: long-term goal → milestones → next action |
 | `/community` | P7 - Community | Peer circles, human guide, RSVP |
-| ~~`/community/my-day`~~ | P7.2 - My Day | Hidden — not routed and nothing links here (`src/screens/MyDay.tsx` kept) |
+| ~~`/community/my-day`~~ | P7.2 - My Day | Hidden — not routed and nothing links here (`src/screens/MyDay.tsx` kept; its schedule now lives on Home) |
 | `/me` | User Page | Avatar in the top bar |
 | `/messages` | P8 - Messages | 💬 in the top bar |
 | `/joyy` | Joyy Settings | From the ≡ drawer or Joyy’s profile |

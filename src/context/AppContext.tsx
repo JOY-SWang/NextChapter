@@ -34,6 +34,9 @@ interface AppState {
   /** When Sarah last saved her own edits (null = still Joyy's assessment). */
   strengthsEditedAt: number | null;
   saveStrengths: (values: StrengthValues) => void;
+  /** Sarah tapped "Not now" on Joyy's proactive check-in on Home (stays dismissed for the session). */
+  joyyCheckinDismissed: boolean;
+  setJoyyCheckinDismissed: (v: boolean) => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -49,6 +52,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [addedToMyDay, setAdded] = useState<string[]>([]);
   const [strengths, setStrengths] = useState<StrengthValues>(JOYY_STRENGTHS);
   const [strengthsEditedAt, setEditedAt] = useState<number | null>(null);
+  const [joyyCheckinDismissed, setJoyyCheckinDismissed] = useState(false);
 
   const openOverlay = useCallback((id: OverlayId) => setOverlay(id), []);
   const closeOverlay = useCallback(() => setOverlay(null), []);
@@ -60,8 +64,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths }),
-    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths],
+    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyyCheckinDismissed, setJoyyCheckinDismissed }),
+    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyyCheckinDismissed],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
