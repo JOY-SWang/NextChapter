@@ -5,41 +5,17 @@ import { Icon } from '../components/Icon';
 import { Photo } from '../components/Photo';
 import { RadarChart } from '../components/RadarChart';
 import { Button, Overline, Pill } from '../components/ui';
-import { BALANCE_ORDER, strengthLevel, strongestPairing, toAxes, type StrengthKey } from '../data/content';
+import { BALANCE_ORDER, STRENGTH_EVIDENCE, strengthLevel, strongestPairing, toAxes, type StrengthKey } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
-const PILLARS: { key: StrengthKey; title: string; sub: string; evidence: string; tags: string[]; growing?: boolean }[] = [
-  {
-    key: 'mentoring',
-    title: 'Leadership & Mentoring',
-    sub: 'Your strongest area',
-    evidence: '“Mentored 35+ tech managers through organizational volatility; certified internal coaching facilitator for mid-tier transitions.”',
-    tags: ['1-on-1 Dialogue', 'Empathetic Listening', 'Psychological Safety'],
-  },
-  {
-    key: 'planning',
-    title: 'Project Planning & Execution',
-    sub: '20 years of delivery',
-    evidence: '“20 years orchestrating multi-million budgets, complex program rollouts, and calming stakeholder anxiety during critical go-lives.”',
-    tags: ['Budget Stewardship', 'Milestone Roadmapping', 'Boundary Setting'],
-  },
-  {
-    key: 'communication',
-    title: 'Communication & Facilitation',
-    sub: 'Clear, calm explainer',
-    evidence: '“Experienced keynote presenter, interactive workshop host for cross-functional leaders, and creator of quiet consensus.”',
-    tags: ['Story Crafting', 'Conflict De-escalation'],
-  },
-  {
-    key: 'wellness',
-    title: 'Yoga & Wellness Practice',
-    sub: 'Growing interest',
-    evidence: '“8 years of personal yoga practice; now learning anatomy basics and breathwork.”',
-    tags: ['Mindful Breath', 'Yoga Asana', 'Basic Yoga Anatomy'],
-    growing: true,
-  },
-];
+type Pillar = { key: StrengthKey; title: string; sub: string; growing?: boolean };
+const PILLARS = ([
+  { key: 'mentoring', title: 'Leadership & Mentoring', sub: 'Your strongest area' },
+  { key: 'planning', title: 'Project Planning & Execution', sub: '20 years of delivery' },
+  { key: 'communication', title: 'Communication & Facilitation', sub: 'Clear, calm explainer' },
+  { key: 'wellness', title: 'Yoga & Wellness Practice', sub: 'Growing interest', growing: true },
+] as Pillar[]).map((p) => ({ ...p, ...STRENGTH_EVIDENCE[p.key] }));
 
 /** User Page (Me) — opened from the avatar in the top bar. */
 export function Me() {

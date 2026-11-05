@@ -1,10 +1,11 @@
+import { useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
 import { CountUp, Reveal } from '../components/Motion';
 import { RadarChart } from '../components/RadarChart';
 import { Button, IconTile, Pill } from '../components/ui';
-import { STRENGTH_META, STRENGTH_ORDER, toAxes } from '../data/content';
+import { STRENGTH_EVIDENCE, STRENGTH_META, STRENGTH_ORDER, strengthLevel, toAxes, type StrengthKey } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
@@ -16,7 +17,10 @@ export function Strengths() {
   const pillars = [...STRENGTH_ORDER]
     .sort((a, b) => strengths[b] - strengths[a])
     .slice(0, 3)
-    .map((k) => ({ ...STRENGTH_META[k], pct: strengths[k] }));
+    .map((k) => ({ key: k, ...STRENGTH_META[k], ...STRENGTH_EVIDENCE[k], pct: strengths[k] }));
+  // One strength open at a time, so the list stays easy to scan.
+  const [open, setOpen] = useState<StrengthKey | null>(null);
+  const uid = useId();
   return (
     <Screen journey={2} label="Your strengths snapshot">
       <Reveal as="header" className="page-head">
@@ -67,21 +71,62 @@ export function Strengths() {
         <Reveal as="h2" className="t-h3">
           Your top strengths
         </Reveal>
-        {pillars.map((p, i) => (
-          <Reveal as="button" variant="left" delay={i * 110} key={p.title} type="button" className="unstyled card card-card pillar">
-            <IconTile icon={p.icon} tone="neutral" size={40} radius={12} iconSize={20} />
-            <span className="grow stack-2">
-              <span className="row gap-8 align-start">
-                <span className="t-label-lg grow">{p.title}</span>
-                <span className="pct-badge">
-                  <CountUp to={p.pct} suffix="%" delay={250 + i * 110} />
+        {pillars.map((p, i) => {
+          const isOpen = open === p.key;
+          const panelId = `${uid}-${p.key}`;
+          return (
+            <Reveal as="section" variant="left" delay={i * 110} key={p.key} className={`card card-card pillar-card ${isOpen ? 'is-open' : ''}`}>
+              <button
+                type="button"
+                className="unstyled pillar"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => setOpen(isOpen ? null : p.key)}
+              >
+                <IconTile icon={p.icon} tone="neutral" size={40} radius={12} iconSize={20} />
+                <span className="grow stack-2">
+                  <span className="row gap-8 align-start">
+                    <span className="t-label-lg grow">{p.title}</span>
+                    <span className="pct-badge">
+                      <CountUp to={p.pct} suffix="%" delay={250 + i * 110} />
+                    </span>
+                  </span>
+                  <span className="t-body muted">{p.sub}</span>
                 </span>
-              </span>
-              <span className="t-body muted">{p.sub}</span>
-            </span>
-            <Icon name="chevron-down" size={20} color="var(--outline)" />
-          </Reveal>
-        ))}
+                <Icon name="chevron-down" size={20} color="var(--outline)" className="pillar-chevron" />
+              </button>
+              <div id={panelId} className="pillar-panel" role="region" aria-label={`${p.title} details`} aria-hidden={!isOpen} {...(isOpen ? {} : { inert: '' })}>
+                <div className="pillar-panel-inner">
+                  <div className="pillar-detail stack-12">
+                    <div className="stack-6">
+                      <div className="row-between t-label">
+                        <span className="muted">Level</span>
+                        <span className="strong-green">{strengthLevel(p.pct)}</span>
+                      </div>
+                      <div className="rating-track">
+                        <span style={{ width: isOpen ? `${p.pct}%` : 0, background: 'var(--primary-key)' }} />
+                      </div>
+                    </div>
+                    <div className="evidence">
+                      <span className="t-label muted">What JoyAI heard</span>
+                      <p className="t-body-italic">{p.evidence}</p>
+                    </div>
+                    <div className="stack-6">
+                      <span className="t-label muted">Shows up as</span>
+                      <div className="wrap gap-6">
+                        {p.tags.map((t) => (
+                          <Pill key={t} tone="neutral">
+                            {t}
+                          </Pill>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          );
+        })}
       </section>
 
       <Reveal as="section" variant="fade" className="card card-high quote-card">
