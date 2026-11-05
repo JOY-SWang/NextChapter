@@ -285,6 +285,43 @@ const STROKE: Record<string, ReactNode> = {
       <path d="M16.2 14.2c2.4.1 4 1.6 4.5 4.3" />
     </>
   ),
+  // Bottom navigation v2 — Home · Discover · AI Coach · Roadmap · Community.
+  'nav-home': <path d="M4.2 10.4 12 4l7.8 6.4V19a1.2 1.2 0 0 1-1.2 1.2h-4.1v-4.6a2.5 2.5 0 0 0-5 0v4.6H5.4A1.2 1.2 0 0 1 4.2 19z" />,
+  'nav-discover': (
+    <>
+      <circle cx="12" cy="12" r="8.6" />
+      <path d="M15.6 8.4 13.3 13.3 8.4 15.6 10.7 10.7z" />
+      <path d="M10.7 10.7 13.3 13.3 8.4 15.6z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  'nav-joyy': (
+    <>
+      <path d="M12 9.4V6.8" />
+      <path d="M12 7.4C10.6 5 8 4.1 5.4 4.9c1 2.4 3.8 3.4 6.6 2.5z" fill="currentColor" fillOpacity="0.55" />
+      <path d="M12 6.8c.9-2.7 3.2-4.1 5.9-3.8-.8 2.7-3.2 4.1-5.9 3.8z" />
+      <path d="M12 9.4c4.2 0 6.9 2.8 6.9 6.2s-2.8 5.5-6.9 5.5-6.9-2.1-6.9-5.5 2.7-6.2 6.9-6.2z" />
+      <path d="M9.5 14.7v.1" strokeWidth="2.2" />
+      <path d="M13.7 14.9q.9-.9 1.8 0" />
+      <path d="M10.4 17.1q1.6 1.3 3.2 0" />
+      <path d="M20.4 6.3c.25 1.25.8 1.8 2 2-1.2.25-1.75.8-2 2-.25-1.2-.8-1.75-2-2 1.2-.2 1.75-.75 2-2z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  'nav-roadmap': (
+    <>
+      <path d="M12 21v-6.6" />
+      <path d="M12 14.4c0-3.4-5.4-4.6-5.4-10" />
+      <path d="M12 14.4c0-3.4 5.4-4.6 5.4-10" />
+      <path d="M3.9 7.1 6.6 4.4l2.7 2.7M14.7 7.1l2.7-2.7 2.7 2.7" />
+    </>
+  ),
+  'nav-people': (
+    <>
+      <circle cx="8" cy="8.6" r="3.6" />
+      <circle cx="16" cy="8.6" r="3.6" />
+      <circle cx="12" cy="11.6" r="1" fill="currentColor" />
+      <path d="M2.8 19.6c0-3 2.3-5 5.2-5 1.6 0 3 .6 4 1.7 1-1.1 2.4-1.7 4-1.7 2.9 0 5.2 2 5.2 5z" />
+    </>
+  ),
 };
 
 /** Filled glyphs exported directly from the Figma bottom navigation + top bar. */

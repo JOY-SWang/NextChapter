@@ -1,6 +1,7 @@
 /** Route map — one entry per Figma frame on "Page 4 Job Transition". */
 export const R = {
   welcome: '/', //                P1 - Welcome Page
+  home: '/home', //              Home tab (placeholder — content to come)
   coachGuide: '/coach/start', //  P2 - AI Coach Guiding (first-time flow, no tab bar)
   coach: '/coach', //             P2.2 - AI Coach
   strengths: '/strengths', //     P3 - User Strength
@@ -31,9 +32,10 @@ export const SCREEN_MAP: { group: string; items: { label: string; to: string; fi
   {
     group: 'Everyday use',
     items: [
+      { label: 'Home', to: R.home, figma: 'Home' },
       { label: 'AI Coach', to: R.coach, figma: 'P2.2 - AI Coach' },
-      { label: 'Explore next steps', to: R.discover, figma: 'P4.2' },
-      { label: 'My Plan · 100-Day Roadmap', to: R.roadmap, figma: 'P6 - Roadmap' },
+      { label: 'Discover · next steps', to: R.discover, figma: 'P4.2' },
+      { label: 'Roadmap · 100-Day Roadmap', to: R.roadmap, figma: 'P6 - Roadmap' },
       { label: 'Community', to: R.community, figma: 'P7 - Community' },
       { label: 'My Day', to: R.myDay, figma: 'P7.2 - My Day' },
       { label: 'Messages', to: R.messages, figma: 'P8 - Messages' },

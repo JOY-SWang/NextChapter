@@ -4,6 +4,7 @@ import { AppProvider, useApp, type OverlayId } from './context/AppContext';
 import { OverlayHost } from './overlays/Overlays';
 import { R, SCREEN_MAP } from './routes';
 import { Welcome } from './screens/Welcome';
+import { Home } from './screens/Home';
 import { Coach } from './screens/Coach';
 import { Strengths } from './screens/Strengths';
 import { Possibilities } from './screens/Possibilities';
@@ -81,6 +82,7 @@ function Device() {
       <span className="device-island" aria-hidden />
       <Routes>
         <Route path={R.welcome} element={<Welcome />} />
+        <Route path={R.home} element={<Home />} />
         <Route path={R.coachGuide} element={<Coach key="guided" guiding />} />
         <Route path={R.coach} element={<Coach key="everyday" />} />
         <Route path={R.strengths} element={<Strengths />} />

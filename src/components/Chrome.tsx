@@ -73,22 +73,23 @@ export function TopBar({ state = 'default' }: { state?: TopBarState }) {
   );
 }
 
-export type Tab = 'coach' | 'discover' | 'roadmap' | 'community' | null;
+export type Tab = 'home' | 'discover' | 'coach' | 'roadmap' | 'community' | null;
 
 /**
- * AI Coach · Explore · My Plan · Community.
- * Explore = actively find, try and compare opportunities (courses, activities, roles).
- * My Plan = the personal plan (page title "My 100-Day Roadmap", with Milestones and My Day inside).
+ * Home · Discover · AI Coach · Roadmap · Community.
+ * AI Coach (Joyy) is always tinted sage so the coach stays easy to find; the active tab is a
+ * forest-green pill with a white icon and label.
  */
 const TABS: { id: Exclude<Tab, null>; label: string; icon: string; to: string }[] = [
-  { id: 'coach', label: 'AI Coach', icon: 'nav-coach', to: R.coach },
-  // After a job has been chosen, Explore always opens P4.2 (Explore Your Next Steps).
-  { id: 'discover', label: 'Explore', icon: 'nav-explore', to: R.discover },
-  { id: 'roadmap', label: 'My Plan', icon: 'nav-plan', to: R.roadmap },
-  { id: 'community', label: 'Community', icon: 'nav-community', to: R.community },
+  { id: 'home', label: 'Home', icon: 'nav-home', to: R.home },
+  // After a job has been chosen, Discover always opens P4.2 (Explore Your Next Steps).
+  { id: 'discover', label: 'Discover', icon: 'nav-discover', to: R.discover },
+  { id: 'coach', label: 'AI Coach', icon: 'nav-joyy', to: R.coach },
+  { id: 'roadmap', label: 'Roadmap', icon: 'nav-roadmap', to: R.roadmap },
+  { id: 'community', label: 'Community', icon: 'nav-people', to: R.community },
 ];
 
-/** NC / Bottom Nav — active tab is Primary green with white label. */
+/** NC / Bottom Nav. */
 export function BottomNav({ active }: { active: Tab }) {
   const nav = useNavigate();
   return (
@@ -97,9 +98,15 @@ export function BottomNav({ active }: { active: Tab }) {
         {TABS.map((t) => {
           const on = t.id === active;
           return (
-            <button key={t.id} type="button" className={`tab ${on ? 'tab-active' : ''}`} aria-current={on ? 'page' : undefined} onClick={() => nav(t.to)}>
+            <button
+              key={t.id}
+              type="button"
+              className={`tab tab-${t.id} ${on ? 'tab-active' : ''}`}
+              aria-current={on ? 'page' : undefined}
+              onClick={() => nav(t.to)}
+            >
               <span className="tab-icon">
-                <Icon name={t.icon} size={23} stroke={on ? 2 : 1.8} color={on ? 'var(--primary-on)' : 'var(--on-surface-variant)'} />
+                <Icon name={t.icon} size={t.id === 'coach' ? 30 : 24} stroke={on ? 2 : 1.8} />
               </span>
               <span className="tab-label">{t.label}</span>
             </button>
