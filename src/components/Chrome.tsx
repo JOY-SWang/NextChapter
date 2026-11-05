@@ -77,14 +77,14 @@ export type Tab = 'home' | 'discover' | 'coach' | 'roadmap' | 'community' | null
 
 /**
  * Home · Discover · AI Coach · Roadmap · Community.
- * AI Coach (Joyy) is always tinted sage so the coach stays easy to find; the active tab is a
+ * AI Coach (JoyAI) is always tinted sage so the coach stays easy to find; the active tab is a
  * forest-green pill with a white icon and label.
  */
 const TABS: { id: Exclude<Tab, null>; label: string; icon: string; to: string }[] = [
   { id: 'home', label: 'Home', icon: 'nav-home', to: R.home },
   // After a job has been chosen, Discover always opens P4.2 (Explore Your Next Steps).
   { id: 'discover', label: 'Discover', icon: 'nav-discover', to: R.discover },
-  { id: 'coach', label: 'AI Coach', icon: 'nav-joyy', to: R.coach },
+  { id: 'coach', label: 'AI Coach', icon: 'nav-joyai', to: R.coach },
   { id: 'roadmap', label: 'Roadmap', icon: 'nav-roadmap', to: R.roadmap },
   { id: 'community', label: 'Community', icon: 'nav-people', to: R.community },
 ];

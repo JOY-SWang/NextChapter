@@ -124,7 +124,7 @@ export function Me() {
         </div>
         {justSaved && (
           <div className="toast" role="status">
-            <Icon name="check-circle" size={18} /> Strengths saved — Joyy will use your levels from now on.
+            <Icon name="check-circle" size={18} /> Strengths saved — JoyAI will use your levels from now on.
           </div>
         )}
         <div className="center-x">

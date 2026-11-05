@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { OverlayFrame } from './OverlayFrame';
 import { useApp, type OverlayId, type TextSize } from '../context/AppContext';
 import { Icon } from '../components/Icon';
-import { Joyy, JoyyAvatar, Sparkle } from '../components/Joyy';
+import { JoyAI, JoyAIAvatar, Sparkle } from '../components/JoyAI';
 import { Photo } from '../components/Photo';
 import { Button, Pill, Toggle, TopicChip } from '../components/ui';
 import { R } from '../routes';
@@ -72,7 +72,7 @@ function SettingsDrawer() {
 
       <div className="drawer-section">
         <div className="drawer-overline">My Next Chapter</div>
-        <DrawerRow leading={<JoyyAvatar size={24} />} label="Joyy settings" chevron onClick={() => go(R.joyySettings)} />
+        <DrawerRow leading={<JoyAIAvatar size={24} />} label="JoyAI settings" chevron onClick={() => go(R.joyaiSettings)} />
         <DrawerRow icon="user" label="My profile & strengths" chevron onClick={() => go(R.me)} />
         <DrawerRow icon="bookmark" label="Saved paths" chevron onClick={() => go(R.fit)} />
         <DrawerRow icon="shield" label="Privacy & data" chevron />
@@ -109,8 +109,8 @@ function DrawerRow({ icon, leading, label, right, chevron, onClick }: { icon?: s
   );
 }
 
-/* ───────────────────────── Meet Joyy (intro modal) ───────────────────────── */
-function MeetJoyy() {
+/* ───────────────────────── Meet JoyAI (intro modal) ───────────────────────── */
+function MeetJoyAI() {
   const { closeOverlay } = useApp();
   const nav = useNavigate();
   const start = () => {
@@ -123,16 +123,16 @@ function MeetJoyy() {
     { icon: 'heart', tone: 'terracotta', title: 'Support every step', text: 'No pressure. Go at your own pace.' },
   ] as const;
   return (
-    <OverlayFrame kind="modal" label="Meet Joyy, your AI coach">
-      <div className="joyy-hero joyy-hero-intro joyy-welcome">
+    <OverlayFrame kind="modal" label="Meet JoyAI, your AI coach">
+      <div className="joyai-hero joyai-hero-intro joyai-welcome">
         <span className="mound" />
-        <span className="joyy-pop joyy-hero-mascot">
-          <Joyy mood="wink" size={174} animated />
+        <span className="joyai-pop joyai-hero-mascot">
+          <JoyAI mood="wink" size={174} animated />
         </span>
         <div className="speech speech-soft">
           Hi!
           <br />
-          I’m Joyy!
+          I’m JoyAI!
         </div>
         <span className="welcome-spark" style={{ left: 262, top: 40, '--s': 0 } as React.CSSProperties}>
           <Sparkle size={14} />
@@ -150,7 +150,7 @@ function MeetJoyy() {
           <Icon name="close" size={20} stroke={2} />
         </button>
       </div>
-      <div className="modal-body center joyy-welcome-body">
+      <div className="modal-body center joyai-welcome-body">
         <h2 className="t-h1-sm stagger" style={{ '--k': 0 } as React.CSSProperties}>
           Your Personal AI Coach for What’s Next
         </h2>
@@ -169,7 +169,7 @@ function MeetJoyy() {
           ))}
         </div>
         <Button pill size="lg" trailing="arrow-right" onClick={start} className="stagger" style={{ '--k': 5 } as React.CSSProperties}>
-          Let’s Chat, Joyy!
+          Let’s Chat, JoyAI!
         </Button>
         <button type="button" className="unstyled text-link stagger" style={{ '--k': 6 } as React.CSSProperties} onClick={start}>
           Maybe later
@@ -179,16 +179,16 @@ function MeetJoyy() {
   );
 }
 
-/* ───────────────────────── Joyy profile popup ───────────────────────── */
-function JoyyProfile() {
+/* ───────────────────────── JoyAI profile popup ───────────────────────── */
+function JoyAIProfile() {
   const { closeOverlay } = useApp();
   const nav = useNavigate();
   return (
-    <OverlayFrame kind="modal" label="Joyy’s profile">
+    <OverlayFrame kind="modal" label="JoyAI’s profile">
       <div className="modal-pad">
-        <div className="joyy-hero joyy-hero-profile">
+        <div className="joyai-hero joyai-hero-profile">
           <span className="mound mound-sm" />
-          <Joyy mood="heart" size={150} className="joyy-hero-mascot" />
+          <JoyAI mood="heart" size={150} className="joyai-hero-mascot" />
           <div className="speech speech-dark">
             Growing with
             <br />
@@ -200,7 +200,7 @@ function JoyyProfile() {
           </button>
         </div>
         <div className="row gap-6">
-          <h2 className="t-h1-sm">Hi, I’m Joyy!</h2>
+          <h2 className="t-h1-sm">Hi, I’m JoyAI!</h2>
           <Sparkle size={20} />
         </div>
         <p className="t-body-md muted">Your personal AI coach for career transitions and a more fulfilling life.</p>
@@ -219,8 +219,8 @@ function JoyyProfile() {
           </div>
           <p className="t-tiny muted">New from our chat: yoga practice and wellness interests.</p>
         </div>
-        <Button pill size="lg" trailing="arrow-right" onClick={() => (closeOverlay(), nav(R.joyySettings))}>
-          Open Joyy Settings
+        <Button pill size="lg" trailing="arrow-right" onClick={() => (closeOverlay(), nav(R.joyaiSettings))}>
+          Open JoyAI Settings
         </Button>
       </div>
     </OverlayFrame>
@@ -235,7 +235,7 @@ function PlanReady() {
     <OverlayFrame kind="modal" label="Your plan is ready">
       <div className="modal-pad center">
         <span className="plan-avatar">
-          <JoyyAvatar size={84} />
+          <JoyAIAvatar size={84} />
         </span>
         <Pill tone="green" className="pill-overline">
           A NEW CHAPTER BEGINS
@@ -280,7 +280,7 @@ const SHEETS = {
     event: '30-min chat with Elena Rostova',
     meta: 'Fri 6 Nov · 10:00 AM · Video call · Free',
     supports: 'Completes your Roadmap Next Action',
-    question: 'Would you like to add this chat to My Day? Joyy will remind you to prepare your questions.',
+    question: 'Would you like to add this chat to My Day? JoyAI will remind you to prepare your questions.',
   },
   trialClass: {
     title: 'Trial class booked!',
@@ -331,8 +331,8 @@ export function OverlayHost() {
   const { overlay } = useApp();
   const map: Record<OverlayId, React.ReactNode> = {
     drawer: <SettingsDrawer />,
-    meetJoyy: <MeetJoyy />,
-    joyyProfile: <JoyyProfile />,
+    meetJoyAI: <MeetJoyAI />,
+    joyaiProfile: <JoyAIProfile />,
     planReady: <PlanReady />,
     rsvp: <AddToMyDay id="rsvp" />,
     chatBooked: <AddToMyDay id="chatBooked" />,

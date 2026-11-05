@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
-import { Joyy, JoyyAvatar } from '../components/Joyy';
+import { JoyAI, JoyAIAvatar } from '../components/JoyAI';
 import { Reveal } from '../components/Motion';
 import { RadarChart } from '../components/RadarChart';
 import { JourneyProgress } from '../components/JourneyProgress';
@@ -12,20 +12,20 @@ import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
 /**
- * Joyy's proactive check-in — the first card on Home so Joyy is hard to miss.
- * Joyy opens the conversation based on Sarah's progress; "Let's talk" goes to the AI Coach,
+ * JoyAI's proactive check-in — the first card on Home so JoyAI is hard to miss.
+ * JoyAI opens the conversation based on Sarah's progress; "Let's talk" goes to the AI Coach,
  * "Not now" folds it into a quiet one-line reminder (low-pressure, reversible).
  */
-function JoyyCheckin() {
+function JoyAICheckin() {
   const nav = useNavigate();
-  const { openOverlay, joyyCheckinDismissed, setJoyyCheckinDismissed } = useApp();
+  const { openOverlay, joyaiCheckinDismissed, setJoyAICheckinDismissed } = useApp();
 
-  if (joyyCheckinDismissed) {
+  if (joyaiCheckinDismissed) {
     return (
-      <div className="joyy-checkin-mini">
-        <JoyyAvatar size={32} onClick={() => openOverlay('joyyProfile')} />
-        <span className="t-caption muted grow">Joyy’s here whenever you want to talk.</span>
-        <button type="button" className="unstyled text-link no-underline t-label strong-green" onClick={() => setJoyyCheckinDismissed(false)}>
+      <div className="joyai-checkin-mini">
+        <JoyAIAvatar size={32} onClick={() => openOverlay('joyaiProfile')} />
+        <span className="t-caption muted grow">JoyAI’s here whenever you want to talk.</span>
+        <button type="button" className="unstyled text-link no-underline t-label strong-green" onClick={() => setJoyAICheckinDismissed(false)}>
           Show message
         </button>
       </div>
@@ -33,28 +33,28 @@ function JoyyCheckin() {
   }
 
   return (
-    <section className="joyy-checkin" aria-label="Message from Joyy">
+    <section className="joyai-checkin" aria-label="Message from JoyAI">
       <div className="row gap-10">
-        <button type="button" className="unstyled joyy-checkin-avatar" aria-label="Open Joyy’s profile" onClick={() => openOverlay('joyyProfile')}>
-          <Joyy mood="wink" size={52} />
+        <button type="button" className="unstyled joyai-checkin-avatar" aria-label="Open JoyAI’s profile" onClick={() => openOverlay('joyaiProfile')}>
+          <JoyAI mood="wink" size={52} />
         </button>
         <div className="stack-0">
-          <strong className="t-h4">Joyy</strong>
+          <strong className="t-h4">JoyAI</strong>
           <span className="t-caption muted">Checking in on your progress</span>
         </div>
       </div>
-      <p className="joyy-bubble">Sarah, you explored yoga teaching yesterday! How are you feeling about it today?</p>
+      <p className="joyai-bubble">Sarah, you explored yoga teaching yesterday! How are you feeling about it today?</p>
       <Button pill trailing="arrow-right" onClick={() => nav(R.coach)}>
         Let’s talk
       </Button>
-      <button type="button" className="unstyled joyy-checkin-later" onClick={() => setJoyyCheckinDismissed(true)}>
+      <button type="button" className="unstyled joyai-checkin-later" onClick={() => setJoyAICheckinDismissed(true)}>
         Not now
       </button>
     </section>
   );
 }
 
-/** P0 - Home: greeting, Joyy check-in, journey + fit radar, and this week's schedule. */
+/** P0 - Home: greeting, JoyAI check-in, journey + fit radar, and this week's schedule. */
 export function Home() {
   const nav = useNavigate();
   return (
@@ -65,7 +65,7 @@ export function Home() {
       </Reveal>
 
       <Reveal delay={60}>
-        <JoyyCheckin />
+        <JoyAICheckin />
       </Reveal>
 
       <Reveal className="stack-8" delay={120}>

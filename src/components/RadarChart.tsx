@@ -14,7 +14,7 @@ interface Props {
   radius?: number;
   /**
    * "mastery" colours vertex dots by level (P3); "compare" draws the dashed role polygon (P5);
-   * "edit" draws `compare` as a dashed outline (Joyy's assessment) behind the edited shape.
+   * "edit" draws `compare` as a dashed outline (JoyAI's assessment) behind the edited shape.
    */
   mode?: 'mastery' | 'plain' | 'compare' | 'edit';
   /** Scroll-triggered: the shapes grow out from the centre once the chart enters view. */

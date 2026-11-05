@@ -416,7 +416,7 @@ button:disabled {
   font-weight: 500;
   white-space: nowrap;
 }
-/* AI Coach (Joyy) keeps its sage tint even when another tab is active. */
+/* AI Coach (JoyAI) keeps its sage tint even when another tab is active. */
 .tab-coach {
   color: #6f9c78;
 }
@@ -1415,7 +1415,7 @@ button:disabled {
   font-size: 16px;
   line-height: 24px;
 }
-.bubble-joyy {
+.bubble-joyai {
   background: var(--surface-container-low);
   border: 1px solid var(--surface-hairline);
   border-top-left-radius: 4px;
@@ -1430,7 +1430,7 @@ button:disabled {
   height: 32px;
   flex: none;
 }
-.joyy-avatar {
+.joyai-avatar {
   display: grid;
   place-items: center;
   flex: none;
@@ -1439,7 +1439,7 @@ button:disabled {
   box-shadow: inset 0 0 0 1.5px var(--primary-container);
   overflow: hidden;
 }
-.joyy-avatar svg {
+.joyai-avatar svg {
   transform: translateY(6%);
 }
 .adapt-note {
@@ -2026,8 +2026,8 @@ button:disabled {
 }
 
 /* ─────────────────────────── Home (P0) ─────────────────────────── */
-/* Joyy's proactive check-in: tinted card + speech bubble so it stands apart from white cards. */
-.joyy-checkin {
+/* JoyAI's proactive check-in: tinted card + speech bubble so it stands apart from white cards. */
+.joyai-checkin {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -2035,17 +2035,17 @@ button:disabled {
   border-radius: 22px;
   background: color-mix(in srgb, var(--primary-container) 45%, var(--surface-card));
 }
-.joyy-checkin-avatar {
+.joyai-checkin-avatar {
   width: 52px;
   height: 52px;
   flex: none;
   border-radius: 50%;
   cursor: pointer;
 }
-.joyy-checkin-avatar svg {
+.joyai-checkin-avatar svg {
   display: block;
 }
-.joyy-bubble {
+.joyai-bubble {
   margin: 0;
   padding: 14px 16px;
   border-radius: 4px 18px 18px 18px;
@@ -2055,7 +2055,7 @@ button:disabled {
   color: var(--on-surface);
   animation: rise 0.35s ease 0.15s both;
 }
-.joyy-checkin-later {
+.joyai-checkin-later {
   align-self: center;
   padding: 6px 12px;
   font-size: 14px;
@@ -2063,7 +2063,7 @@ button:disabled {
   color: var(--primary-muted);
   cursor: pointer;
 }
-.joyy-checkin-mini {
+.joyai-checkin-mini {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2204,11 +2204,11 @@ button:disabled {
   flex: none;
 }
 
-/* ─────────────────────────── Joyy settings ─────────────────────────── */
-.joyy-settings {
+/* ─────────────────────────── JoyAI settings ─────────────────────────── */
+.joyai-settings {
   gap: 16px;
 }
-.joyy-mini-hero {
+.joyai-mini-hero {
   position: relative;
   width: 140px;
   height: 160px;
@@ -2216,7 +2216,7 @@ button:disabled {
   display: grid;
   place-items: end center;
 }
-.joyy-mini-hero svg {
+.joyai-mini-hero svg {
   position: relative;
   z-index: 1;
 }
@@ -2483,34 +2483,34 @@ button:disabled {
   right: 12px;
   z-index: 3;
 }
-.joyy-hero {
+.joyai-hero {
   position: relative;
   overflow: hidden;
 }
-.joyy-hero-intro {
+.joyai-hero-intro {
   height: 224px;
   background: linear-gradient(180deg, #f7f0e3 0%, var(--surface-base) 100%);
 }
-.joyy-hero-intro .joyy-hero-mascot {
+.joyai-hero-intro .joyai-hero-mascot {
   position: absolute;
   left: 148px;
   top: 26px;
 }
-.joyy-hero-intro .mound {
+.joyai-hero-intro .mound {
   left: 145px;
   top: 182px;
 }
-.joyy-hero-profile {
+.joyai-hero-profile {
   height: 188px;
   border-radius: 20px;
   background: linear-gradient(180deg, #edf7f0 0%, #faf5eb 100%);
 }
-.joyy-hero-profile .joyy-hero-mascot {
+.joyai-hero-profile .joyai-hero-mascot {
   position: absolute;
   left: 45px;
   top: 22px;
 }
-.joyy-hero-profile .modal-close {
+.joyai-hero-profile .modal-close {
   top: 8px;
   right: 8px;
   width: 36px;
@@ -2992,7 +2992,7 @@ button:disabled {
   cursor: default;
 }
 
-/* ═════════════════ Plan ready — Joyy avatar ═════════════════ */
+/* ═════════════════ Plan ready — JoyAI avatar ═════════════════ */
 .plan-avatar {
   display: grid;
   place-items: center;
@@ -3001,21 +3001,21 @@ button:disabled {
   box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary-container) 55%, transparent);
 }
 
-/* ═════════════════ Meet Joyy — welcome animation ═════════════════
-   0–300ms     Joyy pops up from below (scale .85 → 1.05 → 1)
+/* ═════════════════ Meet JoyAI — welcome animation ═════════════════
+   0–300ms     JoyAI pops up from below (scale .85 → 1.05 → 1)
    300–800ms   right eye closes into a wink, right leaf waves (±12°)
-   800–1200ms  "Hi! I'm Joyy!" bubble springs in
+   800–1200ms  "Hi! I'm JoyAI!" bubble springs in
    1200–1600ms title, intro, three promises and CTA reveal in turn
    1600ms+     idle: gentle breathing + floating                    */
-.joyy-hero-intro .joyy-hero-mascot {
+.joyai-hero-intro .joyai-hero-mascot {
   display: block;
   line-height: 0;
 }
-.joyy-pop {
+.joyai-pop {
   transform-origin: 50% 100%;
-  animation: joyy-pop 0.3s cubic-bezier(0.3, 0.9, 0.4, 1) both;
+  animation: joyai-pop 0.3s cubic-bezier(0.3, 0.9, 0.4, 1) both;
 }
-@keyframes joyy-pop {
+@keyframes joyai-pop {
   0% {
     opacity: 0;
     transform: translateY(36px) scale(0.85);
@@ -3028,7 +3028,7 @@ button:disabled {
     transform: none;
   }
 }
-.joyy-welcome .mound {
+.joyai-welcome .mound {
   animation: mound-in 0.35s ease-out both;
 }
 @keyframes mound-in {
@@ -3039,7 +3039,7 @@ button:disabled {
 }
 
 /* SVG parts */
-.joyy-animated .joyy-leaf-right {
+.joyai-animated .joyai-leaf-right {
   transform-box: fill-box;
   transform-origin: 0% 80%;
   animation: leaf-wave 0.5s ease-in-out 0.3s both;
@@ -3059,7 +3059,7 @@ button:disabled {
     transform: rotate(-4deg);
   }
 }
-.joyy-animated .joyy-eye-right-open {
+.joyai-animated .joyai-eye-right-open {
   opacity: 0;
   transform-box: fill-box;
   transform-origin: 50% 60%;
@@ -3076,7 +3076,7 @@ button:disabled {
     transform: scaleY(0.1);
   }
 }
-.joyy-animated .joyy-eye-wink {
+.joyai-animated .joyai-eye-wink {
   animation: wink-in 0.5s ease-out 0s both;
 }
 @keyframes wink-in {
@@ -3085,7 +3085,7 @@ button:disabled {
     opacity: 0;
   }
 }
-.joyy-animated .joyy-eye-left {
+.joyai-animated .joyai-eye-left {
   transform-box: fill-box;
   transform-origin: 50% 60%;
   animation: eye-blink 4.6s ease-in-out 2.6s infinite;
@@ -3101,30 +3101,30 @@ button:disabled {
   }
 }
 /* Idle (1600ms+) */
-.joyy-animated .joyy-figure {
-  animation: joyy-float 3.2s ease-in-out 1.6s infinite alternate;
+.joyai-animated .joyai-figure {
+  animation: joyai-float 3.2s ease-in-out 1.6s infinite alternate;
 }
-@keyframes joyy-float {
+@keyframes joyai-float {
   to {
     transform: translateY(-4px);
   }
 }
-.joyy-animated .joyy-breathe {
+.joyai-animated .joyai-breathe {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  animation: joyy-breathe 1.6s ease-in-out 1.6s infinite alternate;
+  animation: joyai-breathe 1.6s ease-in-out 1.6s infinite alternate;
 }
-@keyframes joyy-breathe {
+@keyframes joyai-breathe {
   to {
     transform: scale(1.012, 1.03);
   }
 }
-.joyy-animated .joyy-shadow {
+.joyai-animated .joyai-shadow {
   transform-box: fill-box;
   transform-origin: 50% 50%;
-  animation: joyy-shadow 3.2s ease-in-out 1.6s infinite alternate;
+  animation: joyai-shadow 3.2s ease-in-out 1.6s infinite alternate;
 }
-@keyframes joyy-shadow {
+@keyframes joyai-shadow {
   to {
     transform: scale(0.86);
     opacity: 0.7;
@@ -3132,7 +3132,7 @@ button:disabled {
 }
 
 /* Speech bubble (800–1200ms): fade-in + spring */
-.joyy-welcome .speech-soft {
+.joyai-welcome .speech-soft {
   transform-origin: 85% 90%;
   animation: bubble-spring 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) 0.8s both;
 }
@@ -3180,7 +3180,7 @@ button:disabled {
 }
 
 /* Copy and promises (1200–1600ms): staggered reveal */
-.joyy-welcome-body .stagger {
+.joyai-welcome-body .stagger {
   animation: welcome-rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) calc(1.2s + var(--k, 0) * 0.07s) both;
 }
 @keyframes welcome-rise {
@@ -3307,7 +3307,7 @@ button:disabled {
   opacity: 0.35;
   cursor: default;
 }
-/* Slider: filled up to the value; a small tick marks Joyy's suggestion */
+/* Slider: filled up to the value; a small tick marks JoyAI's suggestion */
 .edit-slider {
   flex: 1;
   min-width: 0;

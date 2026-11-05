@@ -55,7 +55,7 @@ export function Pill({ tone = 'neutral', icon, children, className, style }: { t
   );
 }
 
-/** Removable / addable topic chip (Joyy knowledge focus). */
+/** Removable / addable topic chip (JoyAI knowledge focus). */
 export function TopicChip({ label, tone = 'green', isNew, add }: { label: string; tone?: Tone; isNew?: boolean; add?: boolean }) {
   return (
     <span className={`topic topic-${add ? 'add' : tone}`}>

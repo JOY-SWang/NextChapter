@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { Icon } from '../components/Icon';
-import { Joyy, Sparkle } from '../components/Joyy';
+import { JoyAI, Sparkle } from '../components/JoyAI';
 import { IconTile, Pill, TopicChip } from '../components/ui';
 import { R } from '../routes';
 
@@ -45,29 +45,29 @@ function Section({ n, title, icon, tone, action, desc, children }: { n: number; 
 }
 
 /**
- * Joyy Settings — personalization made visible. Joyy doesn't "learn a new profession":
+ * JoyAI Settings — personalization made visible. JoyAI doesn't "learn a new profession":
  * it picks more relevant knowledge, tools and resources based on Sarah's profile.
  */
-export function JoyySettings() {
+export function JoyAISettings() {
   const nav = useNavigate();
   const [tab, setTab] = useState(0);
   return (
-    <Screen top="status" label="Joyy settings" contentClassName="joyy-settings">
+    <Screen top="status" label="JoyAI settings" contentClassName="joyai-settings">
       <div className="row-between">
         <button type="button" className="icon-btn icon-btn-soft round" aria-label="Close" onClick={() => nav(-1)}>
           <Icon name="close" size={20} stroke={2} />
         </button>
-        <span className="t-h2">Your Joyy</span>
+        <span className="t-h2">Your JoyAI</span>
         <button type="button" className="add-pill soft">
           <Icon name="gear" size={16} /> Customize
         </button>
       </div>
 
       <div className="row gap-12">
-        <div className="joyy-mini-hero">
+        <div className="joyai-mini-hero">
           <span className="mound mound-xs" />
-          <Joyy mood="wink" size={134} />
-          <span className="speech speech-soft speech-xs">Hi! I’m Joyy!</span>
+          <JoyAI mood="wink" size={134} />
+          <span className="speech speech-soft speech-xs">Hi! I’m JoyAI!</span>
           <Sparkle size={12} style={{ position: 'absolute', right: 0, top: 36 }} />
         </div>
         <div className="grow stack-8">

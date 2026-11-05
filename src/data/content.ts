@@ -28,8 +28,8 @@ export const STRENGTH_META: Record<StrengthKey, { label: string; icon: string; t
   problemSolving: { label: 'Problem-solving', icon: 'lightbulb', title: 'Problem-solving', sub: 'Untangling complex situations' },
 };
 
-/** Joyy's assessment from the AI Coach conversation (the starting point the user can edit). */
-export const JOYY_STRENGTHS: StrengthValues = { planning: 95, communication: 88, mentoring: 92, adaptability: 80, wellness: 72, problemSolving: 86 };
+/** JoyAI's assessment from the AI Coach conversation (the starting point the user can edit). */
+export const JOYAI_STRENGTHS: StrengthValues = { planning: 95, communication: 88, mentoring: 92, adaptability: 80, wellness: 72, problemSolving: 86 };
 
 /** Axis order of the P3 strengths map and of the User page balance chart (rotated as in Figma). */
 export const STRENGTH_ORDER: StrengthKey[] = ['planning', 'communication', 'mentoring', 'adaptability', 'wellness', 'problemSolving'];

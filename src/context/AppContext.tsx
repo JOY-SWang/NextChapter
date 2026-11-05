@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
-import { JOYY_STRENGTHS, sameStrengths, type StrengthValues } from '../data/content';
+import { JOYAI_STRENGTHS, sameStrengths, type StrengthValues } from '../data/content';
 
 export type OverlayId =
   | 'drawer'
-  | 'meetJoyy'
-  | 'joyyProfile'
+  | 'meetJoyAI'
+  | 'joyaiProfile'
   | 'planReady'
   | 'rsvp'
   | 'chatBooked'
@@ -29,14 +29,14 @@ interface AppState {
   /** Events the user has added to My Day from Community / Explore / My Plan. */
   addedToMyDay: string[];
   addToMyDay: (key: string) => void;
-  /** Sarah's strength levels (0–100) — Joyy's assessment until she edits them. */
+  /** Sarah's strength levels (0–100) — JoyAI's assessment until she edits them. */
   strengths: StrengthValues;
-  /** When Sarah last saved her own edits (null = still Joyy's assessment). */
+  /** When Sarah last saved her own edits (null = still JoyAI's assessment). */
   strengthsEditedAt: number | null;
   saveStrengths: (values: StrengthValues) => void;
-  /** Sarah tapped "Not now" on Joyy's proactive check-in on Home (stays dismissed for the session). */
-  joyyCheckinDismissed: boolean;
-  setJoyyCheckinDismissed: (v: boolean) => void;
+  /** Sarah tapped "Not now" on JoyAI's proactive check-in on Home (stays dismissed for the session). */
+  joyaiCheckinDismissed: boolean;
+  setJoyAICheckinDismissed: (v: boolean) => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -50,9 +50,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     readAloud: true,
   });
   const [addedToMyDay, setAdded] = useState<string[]>([]);
-  const [strengths, setStrengths] = useState<StrengthValues>(JOYY_STRENGTHS);
+  const [strengths, setStrengths] = useState<StrengthValues>(JOYAI_STRENGTHS);
   const [strengthsEditedAt, setEditedAt] = useState<number | null>(null);
-  const [joyyCheckinDismissed, setJoyyCheckinDismissed] = useState(false);
+  const [joyaiCheckinDismissed, setJoyAICheckinDismissed] = useState(false);
 
   const openOverlay = useCallback((id: OverlayId) => setOverlay(id), []);
   const closeOverlay = useCallback(() => setOverlay(null), []);
@@ -60,12 +60,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const addToMyDay = useCallback((key: string) => setAdded((a) => (a.includes(key) ? a : [...a, key])), []);
   const saveStrengths = useCallback((values: StrengthValues) => {
     setStrengths(values);
-    setEditedAt(sameStrengths(values, JOYY_STRENGTHS) ? null : Date.now());
+    setEditedAt(sameStrengths(values, JOYAI_STRENGTHS) ? null : Date.now());
   }, []);
 
   const value = useMemo(
-    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyyCheckinDismissed, setJoyyCheckinDismissed }),
-    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyyCheckinDismissed],
+    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed, setJoyAICheckinDismissed }),
+    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

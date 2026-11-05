@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Screen } from '../components/Screen';
 import { CommunityTabs } from './Community';
 import { Icon } from '../components/Icon';
-import { JoyyAvatar } from '../components/Joyy';
+import { JoyAIAvatar } from '../components/JoyAI';
 import { WeekSchedule } from '../components/WeekSchedule';
 import { JourneyProgress } from '../components/JourneyProgress';
 import { Button, Overline, Pill, ProgressBar } from '../components/ui';
@@ -44,17 +44,17 @@ export function MyDay() {
           <span className="t-label-lg strong-green">5 / 8 hrs</span>
         </div>
         <ProgressBar value={5 / 8} height={8} track="var(--surface-container-high)" />
-        <p className="t-caption muted">About 3 hours left in your 8-hour weekly limit. Joyy won’t suggest more than that.</p>
+        <p className="t-caption muted">About 3 hours left in your 8-hour weekly limit. JoyAI won’t suggest more than that.</p>
       </section>
 
       <section className="card card-card stack-10">
         <div className="row gap-10">
-          <JoyyAvatar size={32} />
-          <h2 className="t-h4">Check in with Joyy</h2>
+          <JoyAIAvatar size={32} />
+          <h2 className="t-h4">Check in with JoyAI</h2>
         </div>
-        <p className="t-body muted">How did today go? Share a quick note and Joyy can suggest adjustments to your plan.</p>
+        <p className="t-body muted">How did today go? Share a quick note and JoyAI can suggest adjustments to your plan.</p>
         <Button variant="outline" pill trailing="arrow-right" onClick={() => nav(R.coach)}>
-          Reflect with Joyy
+          Reflect with JoyAI
         </Button>
       </section>
     </Screen>
