@@ -93,6 +93,36 @@ export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boo
   );
 }
 
+/** Single-choice segmented control. Native radios underneath, so arrow keys and screen readers work. */
+export function ChoiceSeg<T extends string>({
+  name,
+  labelledBy,
+  options,
+  value,
+  onChange,
+}: {
+  name: string;
+  /** Id of the visible label for the group. */
+  labelledBy: string;
+  options: readonly { id: T; label: string; lang?: string }[];
+  value: T;
+  onChange: (v: T) => void;
+}) {
+  return (
+    <div className="choice-seg" role="radiogroup" aria-labelledby={labelledBy}>
+      {options.map((o) => {
+        const on = o.id === value;
+        return (
+          <label key={o.id} className={on ? 'is-on' : ''}>
+            <input type="radio" className="sr-only" name={name} value={o.id} checked={on} onChange={() => onChange(o.id)} />
+            <span lang={o.lang}>{o.label}</span>
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
 export function ProgressBar({ value, height = 6, tone = 'green', track = 'var(--surface-container)' }: { value: number; height?: number; tone?: 'green' | 'amber'; track?: string }) {
   return (
     <div className="progress" style={{ height, background: track }} role="progressbar" aria-valuenow={Math.round(value * 100)} aria-valuemin={0} aria-valuemax={100}>

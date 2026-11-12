@@ -14,6 +14,82 @@ export const KNOWLEDGE_TOPICS: { label: string; tone: 'green' | 'neutral' | 'amb
   { label: 'Wellness', tone: 'green', isNew: true },
 ];
 
+/* ───────────── How JoyAI talks with Sarah (JoyAI Settings → Preferences) ───────────── */
+/* Behaviour, not content: these change how JoyAI talks, never what it knows or recommends. */
+export type ToneId = 'curious' | 'supportive' | 'practical' | 'direct' | 'gentle' | 'playful';
+export type ReplyLength = 'brief' | 'balanced' | 'detailed';
+export type ReplyLanguage = 'en' | 'zh-Hans';
+
+export interface TalkPrefs {
+  /** Up to MAX_TONES tones, in the order they were picked (the latest one leads the sample reply). */
+  tones: ToneId[];
+  length: ReplyLength;
+  language: ReplyLanguage;
+  /** JoyAI may start a conversation itself — e.g. the check-in card on Home. */
+  proactive: boolean;
+  /** Things JoyAI should avoid, in Sarah's own words. */
+  boundaries: string[];
+}
+
+export const MAX_TONES = 3;
+
+/** Tone options. `color` tints the matching tag in the JoyAI Settings header; `opener` starts the sample reply. */
+export const TONE_OPTIONS: { id: ToneId; label: string; color: string; opener: Record<ReplyLanguage, string> }[] = [
+  { id: 'curious', label: 'Curious', color: 'var(--tertiary-key)', opener: { en: 'Curious how teaching would feel?', 'zh-Hans': '想知道教课是什么感觉吗？' } },
+  { id: 'supportive', label: 'Supportive', color: 'var(--primary-key)', opener: { en: 'You’re making steady progress, Sarah.', 'zh-Hans': 'Sarah，你一直在稳步前进。' } },
+  { id: 'practical', label: 'Practical', color: 'var(--secondary-text)', opener: { en: 'Let’s keep it concrete.', 'zh-Hans': '我们来点实际的。' } },
+  { id: 'direct', label: 'Direct', color: 'var(--primary-strong)', opener: { en: 'I’ll be direct.', 'zh-Hans': '我就直说了。' } },
+  { id: 'gentle', label: 'Gentle', color: 'var(--tertiary-key)', opener: { en: 'No pressure — just one small step.', 'zh-Hans': '不着急，只是一小步。' } },
+  { id: 'playful', label: 'Playful', color: 'var(--secondary-text)', opener: { en: 'Time for a fun experiment!', 'zh-Hans': '来做个有趣的小实验吧！' } },
+];
+
+export const REPLY_LENGTHS: { id: ReplyLength; label: string }[] = [
+  { id: 'brief', label: 'Brief' },
+  { id: 'balanced', label: 'Balanced' },
+  { id: 'detailed', label: 'Detailed' },
+];
+
+export const REPLY_LANGUAGES: { id: ReplyLanguage; label: string; lang: string }[] = [
+  { id: 'en', label: 'English', lang: 'en' },
+  { id: 'zh-Hans', label: '简体中文', lang: 'zh-Hans' },
+];
+
+/** The same advice at each length, for the "Sample reply" preview. */
+export const SAMPLE_REPLY: Record<ReplyLanguage, Record<ReplyLength, string>> = {
+  en: {
+    brief: 'Book one trial class this week.',
+    balanced: 'Book one trial class this week — it’s the quickest way to feel what teaching is like. Want me to find a time?',
+    detailed:
+      'Book one trial class this week. Watching how a teacher paces and cues a class shows you what training will cover, and it fits easily into your 8 hours a week. Afterwards, we can compare two teacher-training options side by side.',
+  },
+  'zh-Hans': {
+    brief: '这周先预约一节体验课。',
+    balanced: '这周先预约一节体验课——这是感受教课最快的方式。要我帮你找个时间吗？',
+    detailed: '这周先预约一节体验课。看看老师怎样把控节奏、给出口令，你就能知道培训会学些什么，而且正好放进你每周 8 小时的安排。之后，我们可以把两个教师培训项目放在一起比较。',
+  },
+};
+
+/** JoyAI's check-in on Home, in Sarah's reply language. */
+export const CHECKIN_MESSAGE: Record<ReplyLanguage, string> = {
+  en: 'Sarah, you explored yoga teaching yesterday! How are you feeling about it today?',
+  'zh-Hans': 'Sarah，你昨天了解了瑜伽教学！今天感觉怎么样？',
+};
+
+export const DEFAULT_TALK_PREFS: TalkPrefs = {
+  tones: ['curious', 'supportive', 'practical'],
+  length: 'balanced',
+  language: 'en',
+  proactive: true,
+  boundaries: ['Don’t rush my decisions', 'Ask before bringing up money', 'No messages after 9 pm'],
+};
+
+export const sameTalkPrefs = (a: TalkPrefs, b: TalkPrefs) =>
+  a.length === b.length &&
+  a.language === b.language &&
+  a.proactive === b.proactive &&
+  a.tones.join() === b.tones.join() &&
+  a.boundaries.join('\n') === b.boundaries.join('\n');
+
 /** P3 "Your strengths map" — same six dimensions and values as the Me page. */
 /* ───────────── Sarah's strengths (editable from the User page) ───────────── */
 export type StrengthKey = 'planning' | 'communication' | 'mentoring' | 'adaptability' | 'wellness' | 'problemSolving';
