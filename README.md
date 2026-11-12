@@ -61,7 +61,7 @@ content is enough). The script maps each slot to its Figma node in `scripts/fetc
 | ~~`/community/my-day`~~ | P7.2 - My Day | Hidden — not routed and nothing links here (`src/screens/MyDay.tsx` kept; its schedule now lives on Home) |
 | `/me` | User Page | Avatar in the top bar |
 | `/messages` | P8 - Messages | 💬 in the top bar |
-| `/joyai` | JoyAI Settings | From the ≡ drawer or JoyAI’s profile |
+| `/joyai` | JoyAI Settings | From the ≡ drawer or JoyAI’s profile. The Overview · Knowledge · About You · Preferences bar pins to the top, scrolls to its section and follows the scroll; **Customize** jumps to Preferences. *How I Talk With You* (Preferences) sets behaviour, not content: tone (shown as the header tags), reply length, reply language, proactive check-ins and boundaries, with a live sample reply. Check-ins and language also drive JoyAI’s check-in on Home |
 
 Overlays: settings drawer (≡ — text size, bold text and high contrast actually work), Meet JoyAI,
 JoyAI profile, Plan ready, and three *Add to My Day* sheets (gathering RSVP, guide chat, trial class).

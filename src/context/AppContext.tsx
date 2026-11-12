@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
-import { JOYAI_STRENGTHS, sameStrengths, type StrengthValues } from '../data/content';
+import { DEFAULT_TALK_PREFS, JOYAI_STRENGTHS, sameStrengths, type StrengthValues, type TalkPrefs } from '../data/content';
 
 export type OverlayId =
   | 'drawer'
@@ -37,6 +37,9 @@ interface AppState {
   /** Sarah tapped "Not now" on JoyAI's proactive check-in on Home (stays dismissed for the session). */
   joyaiCheckinDismissed: boolean;
   setJoyAICheckinDismissed: (v: boolean) => void;
+  /** How JoyAI talks with Sarah — tone, reply length and language, proactive check-ins, boundaries (JoyAI Settings → Preferences). */
+  talkPrefs: TalkPrefs;
+  updateTalkPrefs: (patch: Partial<TalkPrefs> | ((prev: TalkPrefs) => Partial<TalkPrefs>)) => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -53,6 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [strengths, setStrengths] = useState<StrengthValues>(JOYAI_STRENGTHS);
   const [strengthsEditedAt, setEditedAt] = useState<number | null>(null);
   const [joyaiCheckinDismissed, setJoyAICheckinDismissed] = useState(false);
+  const [talkPrefs, setTalkPrefs] = useState<TalkPrefs>(DEFAULT_TALK_PREFS);
 
   const openOverlay = useCallback((id: OverlayId) => setOverlay(id), []);
   const closeOverlay = useCallback(() => setOverlay(null), []);
@@ -62,10 +66,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setStrengths(values);
     setEditedAt(sameStrengths(values, JOYAI_STRENGTHS) ? null : Date.now());
   }, []);
+  const updateTalkPrefs = useCallback(
+    (patch: Partial<TalkPrefs> | ((prev: TalkPrefs) => Partial<TalkPrefs>)) => setTalkPrefs((p) => ({ ...p, ...(typeof patch === 'function' ? patch(p) : patch) })),
+    [],
+  );
 
   const value = useMemo(
-    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed, setJoyAICheckinDismissed }),
-    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed],
+    () => ({ overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed, setJoyAICheckinDismissed, talkPrefs, updateTalkPrefs }),
+    [overlay, openOverlay, closeOverlay, settings, updateSettings, addedToMyDay, addToMyDay, strengths, strengthsEditedAt, saveStrengths, joyaiCheckinDismissed, talkPrefs, updateTalkPrefs],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

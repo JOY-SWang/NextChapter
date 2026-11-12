@@ -7,7 +7,7 @@ import { RadarChart } from '../components/RadarChart';
 import { JourneyProgress } from '../components/JourneyProgress';
 import { WeekSchedule } from '../components/WeekSchedule';
 import { Button } from '../components/ui';
-import { FIT_AXES } from '../data/content';
+import { CHECKIN_MESSAGE, FIT_AXES } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { R } from '../routes';
 
@@ -15,19 +15,23 @@ import { R } from '../routes';
  * JoyAI's proactive check-in — the green card at the bottom of Home, after My Schedule.
  * JoyAI opens the conversation based on Sarah's progress; "Let's talk" goes to the AI Coach,
  * "Not now" folds it into a quiet one-line reminder (low-pressure, reversible).
+ * Follows JoyAI Settings → Preferences: with proactive check-ins off JoyAI only shows the quiet line,
+ * and the message uses Sarah's reply language.
  */
 function JoyAICheckin() {
   const nav = useNavigate();
-  const { openOverlay, joyaiCheckinDismissed, setJoyAICheckinDismissed } = useApp();
+  const { openOverlay, joyaiCheckinDismissed, setJoyAICheckinDismissed, talkPrefs } = useApp();
 
-  if (joyaiCheckinDismissed) {
+  if (joyaiCheckinDismissed || !talkPrefs.proactive) {
     return (
       <div className="joyai-checkin-mini">
         <JoyAIAvatar size={32} onClick={() => openOverlay('joyaiProfile')} />
         <span className="t-caption muted grow">JoyAI’s here whenever you want to talk.</span>
-        <button type="button" className="unstyled text-link no-underline t-label strong-green" onClick={() => setJoyAICheckinDismissed(false)}>
-          Show message
-        </button>
+        {talkPrefs.proactive && (
+          <button type="button" className="unstyled text-link no-underline t-label strong-green" onClick={() => setJoyAICheckinDismissed(false)}>
+            Show message
+          </button>
+        )}
       </div>
     );
   }
@@ -43,7 +47,9 @@ function JoyAICheckin() {
           <span className="t-caption muted">Checking in on your progress</span>
         </div>
       </div>
-      <p className="joyai-bubble">Sarah, you explored yoga teaching yesterday! How are you feeling about it today?</p>
+      <p className="joyai-bubble" lang={talkPrefs.language}>
+        {CHECKIN_MESSAGE[talkPrefs.language]}
+      </p>
       <Button pill trailing="arrow-right" onClick={() => nav(R.coach)}>
         Let’s talk
       </Button>
